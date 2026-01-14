@@ -7,7 +7,8 @@
 		IconArticle,
 		IconCode,
 		IconCalendarEvent,
-		IconActivity
+		IconActivity,
+		IconTerminal2
 	} from '@tabler/icons-svelte';
 	import Site from '$lib/config/common';
 	import { Home } from '$lib/config/pages';
@@ -18,6 +19,7 @@
 	import TimeWaster from '$components/bento/TimeWaster.svelte';
 	import { formatDate } from '$utils/date';
 	import type { CommitData } from '$lib/api/commits';
+	import { onMount } from 'svelte';
 
 	type PageData = {
 		featuredProjects: FeaturedProject[];
@@ -30,7 +32,30 @@
 
 	let { data }: { data: PageData } = $props();
 	let isNameHovered = $state(false);
+	let showTerminal = $state(false);
 	const langTotal = $derived((data.commitData?.languages || []).reduce((a, l) => a + l.size, 0));
+
+	function openTerminal() {
+		showTerminal = true;
+	}
+
+	function closeTerminal() {
+		showTerminal = false;
+	}
+
+	onMount(() => {
+		// Listen for close message from terminal iframe
+		const handleMessage = (event: MessageEvent) => {
+			console.log('Parent received message:', event.data);
+			if (event.data?.type === 'CLOSE_TERMINAL' || 
+				event.data?.type === 'MINIMIZE_TERMINAL') {
+				console.log('Closing terminal...');
+				closeTerminal();
+			}
+		};
+		window.addEventListener('message', handleMessage);
+		return () => window.removeEventListener('message', handleMessage);
+	});
 </script>
 
 <div class="mx-auto max-w-6xl space-y-12 px-0 py-8 md:space-y-16 md:px-4 md:py-12">
@@ -39,9 +64,9 @@
 		<h1 class="text-3xl font-bold md:text-4xl">
 			Hey! I'm
 			<span class="text-accent">
-				<span class="sr-only select-none">Jason</span>
+				<span class="sr-only select-none">Mayu</span>
 				<span aria-hidden="true">
-					<span>J</span><span
+					<span>M</span><span
 						class="decoration-accent/30 underline decoration-dashed opacity-70"
 						onmouseenter={() => (isNameHovered = true)}
 						onmouseleave={() => (isNameHovered = false)}
@@ -50,34 +75,25 @@
 						tabindex="0"
 						role="button"
 						aria-label="Hover or focus to see a fun fact about my name">a</span
-					><span>son</span><span
+					><span>yu</span><span
 						aria-hidden="true"
 						class={`pointer-events-none inline-flex overflow-hidden align-baseline whitespace-nowrap transition-all duration-500 ease-out select-none ${
 							isNameHovered ? 'max-w-[7ch] opacity-100' : 'max-w-0 opacity-0'
-						}`}>&nbsp;'JSON'</span
+						}`}>&nbsp;'resh'</span
 					>
 				</span>
-				<span>Cameron</span>
+				<span>Singh</span>
 			</span>
 		</h1>
 		<!--note to self: Could be improved via Senior SWE (Fullstack, AI, Systems) @ Stan.. -->
 		<p class="text-subtext0 max-w-prose text-lg leading-relaxed">
-			I'm currently working as a Senior SWE @ <a
+			I'm currently a Student and a Software Developer  at @<a
 				class="link text-accent/85"
 				target="_blank"
 				rel="noopener"
-				href="https://stan.store">Stan</a
-			>. I've written software that is trusted by
-			<a
-				class="link text-accent/85"
-				target="_blank"
-				rel="noopener"
-				href="https://policytoolbox.iiep.unesco.org">The United Nations</a
-			>,
-			<a class="link text-accent/85" target="_blank" rel="noopener" href="https://git.kernel.org"
-				>The Linux Foundation</a
-			>,
-			<a
+				href="https://stan.store">Aexiz</a>. I'm a Computer Science student and software developer focused on building reliable backend systems,
+			I enjoy working close to the fundamentals—data structures, APIs, databases, and system design—while writing clean, maintainable code.
+			<!-- <a
 				class="link text-accent/85"
 				target="_blank"
 				rel="noopener"
@@ -98,8 +114,8 @@
 			and many others<a
 				href="/projects/anubis"
 				class="hover:text-accent ml-0.5 align-super text-xs font-semibold">[1]</a
-			>. Seeing code I wrote actually help people at scale is what keeps me building. Currently
-			building AI that helps people articulate their ideas and share them at scale.
+			> --><br><br>
+			Currently building projects and learning how production-grade systems are designed and maintained. And building a fact checking platform which uses modern LLMs to verify the authenticity of the content.
 		</p>
 		<div class="flex flex-wrap items-center gap-x-4 gap-y-2 pt-2">
 			{#each Home.socialLinks as link (link.href)}
@@ -114,6 +130,14 @@
 					<span class="text-surface1 text-xs">|</span>
 				{/if}
 			{/each}
+			<span class="text-surface1 text-xs">|</span>
+			<button
+				onclick={openTerminal}
+				class="group text-subtext1 hover:text-accent inline-flex items-center gap-1 text-sm transition-colors duration-200"
+			>
+				<IconTerminal2 size={16} />
+				<span>Terminal</span>
+			</button>
 			<span class="text-surface1 text-xs">|</span>
 			<a
 				href="/about"
@@ -220,7 +244,7 @@
 				{/if}
 				<div class="mt-3 flex items-center gap-3">
 					<a
-						href="https://github.com/jasonlovesdoggo"
+						href={Site.out.github}
 						target="_blank"
 						rel="noopener noreferrer"
 						class="group text-accent inline-flex items-center gap-1 text-sm hover:underline"
@@ -268,7 +292,7 @@
 				</div>
 			</div>
 			<!-- Box 6: Latest Posts -->
-			<div
+			<!-- <div
 				class="border-surface0 bg-base rounded-xl border p-4 shadow-lg sm:col-span-2 lg:col-span-2"
 			>
 				<div class="text-text mb-3 flex items-center justify-between gap-2 text-sm">
@@ -318,7 +342,27 @@
 				{:else}
 					<p class="text-subtext1 text-xs italic">No posts yet.</p>
 				{/if}
-			</div>
+			</div> -->
 		</div>
 	</section>
 </div>
+
+<!-- Terminal Overlay -->
+{#if showTerminal}
+<div 
+	class="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/40 backdrop-blur-sm animate-in fade-in duration-150 keyboard-hide"
+	onclick={(e) => {
+		if (e.target === e.currentTarget) closeTerminal();
+	}}
+	role="presentation"
+>
+	<div class="w-full h-full max-w-6xl max-h-screen flex items-center justify-center">
+		<iframe
+			src="/terminal/index.html"
+			title="Terminal Portfolio"
+			class="w-full h-full border-0 animate-in fade-in zoom-in duration-150"
+			   sandbox="allow-scripts allow-same-origin allow-forms allow-top-navigation"
+		/>
+	</div>
+</div>
+{/if}

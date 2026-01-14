@@ -1,10 +1,10 @@
-import type { PageServerLoad } from '$types';
+import type { PageServerLoad } from './$types';
 import { getFeaturedProjects } from '$lib/content/projects';
 import { fetchLatestCommits } from '$lib/api/commits';
 import { getLatestPosts } from '$lib/content/posts';
 import { measurePerformance, measureSync } from '$lib/utils/performance';
 
-export const load: PageServerLoad = async ({ platform }) => {
+export const load: PageServerLoad = async ({ platform }: { platform?: App.Platform }) => {
 	const kv = platform?.env?.NYXCACHE;
 
 	return await measurePerformance('homepage-load-total', async () => {

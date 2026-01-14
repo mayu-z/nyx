@@ -3,7 +3,7 @@
  * All Rights Reserved
  */
 
-import type { PageLoad, EntryGenerator, PageServerLoad } from '$types';
+import type { Load, ServerLoad, Config } from '@sveltejs/kit';
 
 interface ContentService<T> {
 	getAll: () => T[];
@@ -14,18 +14,21 @@ interface ContentEntry {
 	slug: string;
 }
 
+type EntryGenerator = Config['entries'];
+
 export function createContentPage<T extends ContentEntry>({
 	getAll,
 	getBySlug
 }: ContentService<T>) {
 	const prerender = true;
 	const entries: EntryGenerator = () => getAll().map((p) => ({ slug: p.slug }));
-	const load: PageLoad = ({ params }) => getBySlug(params.slug);
+	const load: Load = ({ params }) =>
+		getBySlug((params as { slug: string }).slug) as Record<string, any>;
 	return { prerender, entries, load };
 }
 
 export function createListingPage<T>(getAll: () => T[], key: string) {
-	const load: PageServerLoad = () => ({
+	const load: ServerLoad = () => ({
 		[key]: getAll()
 	});
 	return { load };

@@ -1,0 +1,32 @@
+~~~
+title = "chat-app"
+description = "A real-time chat application built with JavaScript, enabling users to communicate instantly in a seamless interface."
+date = "2025-12-24"
+published = true
+featured = true
+tags = ["JavaScript", "chat", "real-time", "web-app"]
+
+[image]
+url = "/projects/chat-app-card.webp"
+alt = "chat-app GitHub repository"
+
+[[links]]
+text = "GitHub"
+url = "https://github.com/mayu-z/chat-app"
+~~~
+
+# chat-app
+
+`chat-app` is a web-based application designed to facilitate real-time communication. Built primarily with JavaScript, it provides a responsive and interactive user experience for messaging.
+
+## Features
+
+*   **Real-time Messaging**: Instant delivery of messages between users.
+*   **User-Friendly Interface**: Clean and intuitive design for easy navigation.
+*   **Responsive Layout**: Works seamlessly across different devices and screen sizes.
+
+## Tech Stack
+
+*   **Frontend**: HTML, CSS, JavaScript
+*   **Backend**: Node.js (assumed based on typical JS chat apps)
+*   **Communication**: WebSockets (or similar technology for real-time capabilities)

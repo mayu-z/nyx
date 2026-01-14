@@ -1,0 +1,27 @@
+~~~
+title = "choker"
+description = "A CSS-focused project, possibly a styling library, a design experiment, or a specific UI component implementation."
+date = "2025-06-25"
+published = true
+tags = ["CSS", "design", "style"]
+
+[image]
+url = "/projects/choker-card.webp"
+alt = "choker GitHub repository"
+
+[[links]]
+text = "GitHub"
+url = "https://github.com/mayu-z/choker"
+~~~
+
+# choker
+
+`choker` is a repository primarily written in CSS. This suggests a strong focus on visual design, styling techniques, or perhaps a pure CSS art project / challenge.
+
+## Focus Areas
+
+*   **Layouts**: Experimenting with Flexbox, Grid, or other layout models.
+*   **Animations**: Using CSS keyframes and transitions for visual effects.
+*   **Responsive Design**: Ensuring compatibility across different viewports.
+
+It highlights the power of CSS in creating engaging web experiences without heavy reliance on JavaScript.

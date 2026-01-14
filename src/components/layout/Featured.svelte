@@ -30,7 +30,7 @@
 				href="/projects"
 				class="group text-accent/90 link hidden items-center gap-1 text-sm sm:inline-flex"
 			>
-				<span>View all</span>
+				<span>View Projects</span>
 				<IconArrowRight
 					size={14}
 					class="transition-transform duration-200 group-hover:translate-x-0.5"
@@ -80,7 +80,7 @@
 				href="/projects"
 				class="group text-accent inline-flex items-center gap-1 text-sm hover:underline"
 			>
-				<span>View all projects</span>
+				<span>View Projects</span>
 				<IconArrowRight
 					size={14}
 					class="transition-transform duration-200 group-hover:translate-x-0.5"

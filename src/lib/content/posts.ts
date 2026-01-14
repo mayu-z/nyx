@@ -1,4 +1,4 @@
-import { createContentService, type ContentEntry } from './factory';
+import { createContentService, type ContentEntry, type ContentPageData } from './factory';
 
 export interface PostImage {
 	url: string;
@@ -19,6 +19,7 @@ export interface PostMetadata {
 }
 
 export type PostEntry = ContentEntry<PostMetadata>;
+export type PostPageData = ContentPageData<PostMetadata>;
 
 const postService = createContentService<PostMetadata>({
 	modules: import.meta.glob('/content/posts/*.svx', { eager: true }),

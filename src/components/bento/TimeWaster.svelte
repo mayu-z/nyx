@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
+	import { onMount, onDestroy } from 'svelte';
 	import { browser } from '$app/environment';
 	import Site from '$lib/config/common';
 	import { IconInfoCircle } from '@tabler/icons-svelte';
@@ -11,6 +11,7 @@
 	let buttonScale = $state(1);
 	let counterGlow = $state(false);
 	let showInfo = $state(false);
+	let pollInterval: ReturnType<typeof setInterval> | null = null;
 
 	const KEY = 'collective-waste';
 
@@ -20,99 +21,63 @@
 	});
 
 	const personalCount = $derived($personalCountStore);
-	let eventSource: EventSource | null = null;
 	let lastAnimationTime = 0;
 	const ANIMATION_THROTTLE = 75; // Min 75ms between animations
+	const POLL_INTERVAL = 2000; // Poll every 2 seconds
 
-	onMount(() => {
-		if (browser) {
-			// Get initial count
-			fetchCurrentCount();
-
-			// Set up SSE stream
-			eventSource = setupStream();
-
-			// Listen for escape key to close info
-			const handleEscape = (e: KeyboardEvent) => {
-				if (e.key === 'Escape') {
-					showInfo = false;
-				}
-			};
-			window.addEventListener('keydown', handleEscape);
-
-			// Handle tab visibility changes
-			const handleVisibilityChange = () => {
-				if (document.hidden) {
-					// Close SSE connection when tab is hidden
-					if (eventSource) {
-						eventSource.close();
-						eventSource = null;
-					}
-				} else {
-					// Tab became visible - reconnect
-					fetchCurrentCount();
-					if (!eventSource || eventSource.readyState === EventSource.CLOSED) {
-						eventSource = setupStream();
-					}
-				}
-			};
-			document.addEventListener('visibilitychange', handleVisibilityChange);
-
-			return () => {
-				window.removeEventListener('keydown', handleEscape);
-				document.removeEventListener('visibilitychange', handleVisibilityChange);
-				if (eventSource) {
-					eventSource.close();
-				}
-			};
-		}
-	});
-
-	async function fetchCurrentCount() {
+	// Fetch global count from API
+	async function fetchGlobalCount() {
 		try {
-			const response = await fetch(`${Site.abacus.instance}/get/${Site.abacus.namespace}/${KEY}`);
-			if (response.ok) {
-				const data = await response.json();
-				globalCount = data.value || 0;
-			} else if (response.status === 404) {
-				globalCount = 0;
+			const response = await fetch('/api/counter');
+			const data = await response.json();
+			
+			if (data.count !== undefined) {
+				const oldCount = globalCount;
+				globalCount = data.count;
+				
+				// Trigger animation if count increased from another user
+				if (globalCount > oldCount && oldCount > 0) {
+					triggerStreamAnimation();
+				}
 			}
 		} catch (error) {
-			console.error('Failed to fetch count:', error);
-		} finally {
-			isLoading = false;
+			console.error('Error fetching global count:', error);
 		}
 	}
 
-	function setupStream() {
-		const source = new EventSource(
-			`${Site.abacus.instance}/stream/${Site.abacus.namespace}/${KEY}`
-		);
-
-		source.onmessage = (event) => {
-			try {
-				const data = JSON.parse(event.data);
-				if (data.value > globalCount) {
-					globalCount = data.value;
-
-					// Throttle animations to prevent freezing
-					const now = Date.now();
-					if (now - lastAnimationTime > ANIMATION_THROTTLE) {
-						triggerStreamAnimation();
-						lastAnimationTime = now;
-					}
-				}
-			} catch (error) {
-				console.error('Stream parse error:', error);
+	// Increment counter via API
+	async function incrementCounter() {
+		try {
+			const response = await fetch('/api/counter', {
+				method: 'POST'
+			});
+			const data = await response.json();
+			
+			if (data.count !== undefined) {
+				globalCount = data.count;
 			}
-		};
-
-		source.onerror = (error) => {
-			console.error('Stream error:', error);
-		};
-
-		return source;
+		} catch (error) {
+			console.error('Error incrementing counter:', error);
+			// Optimistic update on error
+			globalCount++;
+		}
 	}
+
+	onMount(async () => {
+		// Initial fetch
+		await fetchGlobalCount();
+		isLoading = false;
+
+		// Start polling every 2 seconds
+		pollInterval = setInterval(fetchGlobalCount, POLL_INTERVAL);
+	});
+
+	onDestroy(() => {
+		// Clean up polling interval
+		if (pollInterval) {
+			clearInterval(pollInterval);
+		}
+	});
 
 	function triggerStreamAnimation() {
 		counterGlow = true;
@@ -131,26 +96,18 @@
 		}
 	}
 
-	async function handleClick() {
+	function handleClick() {
 		buttonScale = 0.95;
 		setTimeout(() => (buttonScale = 1), 150);
 
 		// Update personal count through store
 		personalCountStore.update((n) => n + 1);
 
-		// Optimistic update for global count
-		globalCount++;
+		// Increment global counter via API
+		incrementCounter();
 
 		// Trigger animation for own click
 		triggerStreamAnimation();
-
-		try {
-			await fetch(`${Site.abacus.instance}/hit/${Site.abacus.namespace}/${KEY}`);
-		} catch (error) {
-			console.error('Failed to register click:', error);
-			// Revert optimistic update
-			globalCount--;
-		}
 	}
 
 	function formatNumber(num: number): string {

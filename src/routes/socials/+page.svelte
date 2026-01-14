@@ -95,7 +95,7 @@
 		<p class="text-subtext1 text-sm">
 			Prefer email? Reach out at
 			<a href="mailto:hi@jasoncameron.dev" class="link text-accent font-medium hover:underline">
-				hi@jasoncameron.dev
+				mayuresh2k4@gmail.com
 			</a>
 		</p>
 	</div>

@@ -22,7 +22,7 @@
 </script>
 
 <svelte:head>
-	<title>About Me | Jason Cameron</title>
+	<title>About Me | Mayu</title>
 </svelte:head>
 
 {#snippet ExternalLink(href: str, text: str)}
@@ -53,7 +53,7 @@
 		<div class="grid grid-cols-1 gap-6 md:grid-cols-3">
 			<div class="md:col-span-1">
 				<img
-					src="/images/avatar.webp"
+					src="/images/unnamed.jpg"
 					alt="Jason Cameron"
 					class="h-full w-full rounded-md object-cover shadow-lg transition-transform duration-300 hover:scale-[1.02]"
 				/>
@@ -61,8 +61,8 @@
 
 			<div class="space-y-4 md:col-span-2">
 				<p class="text-subtext0 text-base leading-relaxed">
-					<b>Hey!</b> I'm Jason Cameron <a class="link" href="/socials">(@JasonLovesDoggo)</a> — a
-					Senior Software Engineer at Stan based out of Toronto, Canada. I like to make
+					<b>Hey!</b> I'm Mayu Singh <a class="link" href="/socials">(@mayu-z)</a> — a
+					Software Engineer by passion based out of Bangalore, India. I like to make
 					<a href="/projects" class="link">cool projects</a>
 					when i'm bored. <!--todo: make toronto canada something cool-->
 				</p>
@@ -135,114 +135,18 @@
 						}}
 					>
 						<IconMail size={16} />
-						contact[at][thisdomain]
+						mayuresh2k4@gmail.com
 					</span>
 				</div>
 			</div>
 		</div>
 	</section>
 
-	<!--	&lt;!&ndash; What I'm Working On Section &ndash;&gt;-->
-	<!--	<section class="space-y-6">-->
-	<!--		<AnchorHeader level="h2" class="flex items-center gap-3 text-2xl font-bold">-->
-	<!--			<span>What I'm Working On</span>-->
-	<!--		</AnchorHeader>-->
+		
+	<!-- <section id="hobbies-section" class="space-y-8">
+		
 
-	<!--		<div class="space-y-6">-->
-	<!--			<div class="prose prose-sm max-w-none">-->
-	<!--				<p class="text-subtext0 text-base leading-relaxed">-->
-	<!--					Currently, I'm deep into <span class="text-text font-medium">systems programming with Rust</span>,-->
-	<!--					focusing on building performant, memory-safe applications. I've been exploring the intersection of-->
-	<!--					low-level control and high-level abstractions, which has been both challenging and rewarding.-->
-	<!--					Alongside this, I'm diving into <span class="text-text font-medium">ML/AI engineering</span>,-->
-	<!--					particularly working with LLMs and computer vision applications to solve real-world problems.-->
-	<!--				</p>-->
-
-	<!--				<p class="text-subtext0 text-base leading-relaxed">-->
-	<!--					My main active projects include maintaining <a href="https://github.com/TecharoHQ/anubis" class="link">Anubis</a>,-->
-	<!--					the anti-bot defense system that's now protecting major organizations, and continuously improving this portfolio site.-->
-	<!--					I'm also contributing to various open-source projects and working on technical writing to share what I've learned-->
-	<!--					with the community.-->
-	<!--				</p>-->
-
-	<!--				<p class="text-subtext0 text-base leading-relaxed">-->
-	<!--					Looking ahead, I'm focused on <span class="text-text font-medium">scaling my impact through open source</span>.-->
-	<!--					This means not just contributing code, but also improving documentation, mentoring newcomers, and building tools-->
-	<!--					that make developers' lives easier. I believe in the power of well-crafted software and clear communication to-->
-	<!--					solve complex problems.-->
-	<!--				</p>-->
-	<!--			</div>-->
-	<!--		</div>-->
-	<!--	</section>-->
-
-	<!--	&lt;!&ndash; My Approach Section &ndash;&gt;-->
-	<!--	<section class="space-y-6">-->
-	<!--		<AnchorHeader level="h2" class="flex items-center gap-3 text-2xl font-bold">-->
-	<!--			<span>How I Work</span>-->
-	<!--		</AnchorHeader>-->
-
-	<!--		<div class="space-y-6">-->
-	<!--			<div class="prose prose-sm max-w-none">-->
-	<!--				<p class="text-subtext0 text-base leading-relaxed">-->
-	<!--					I'm a strong believer in <span class="text-text font-medium">building in public</span> and sharing knowledge openly.-->
-	<!--					Most of my work is open source, from the tools I build to the configurations I use. I think transparency in-->
-	<!--					development (not just code) leads to better software and helps others learn from both successes and mistakes.-->
-	<!--				</p>-->
-
-	<!--				<p class="text-subtext0 text-base leading-relaxed">-->
-	<!--					Beyond writing code, I'm passionate about <span class="text-text font-medium">mentoring and community building</span>.-->
-	<!--					I regularly participate in hackathons as both a mentor and organizer, helping the next generation of developers-->
-	<!--					find their path. There's something special about seeing someone have that "aha!" moment when a concept clicks.-->
-	<!--				</p>-->
-	<!--			</div>-->
-	<!--		</div>-->
-	<!--	</section>-->
-
-	<!-- Hobbies Section -->
-	<section id="hobbies-section" class="space-y-8">
-		<!--		<div class="grid grid-cols-1 gap-6 md:grid-cols-2">-->
-		<!--			&lt;!&ndash; Ultimate Frisbee &ndash;&gt;-->
-		<!--			<div-->
-		<!--				class="bg-base rounded-lg p-5 shadow-sm transition-all duration-300 hover:shadow-md"-->
-		<!--				style="transition-delay: 0ms;"-->
-		<!--			>-->
-		<!--				<img-->
-		<!--					src="https://placehold.co/600x400?text=Ultimate+Frisbee"-->
-		<!--					alt="Ultimate Frisbee"-->
-		<!--					class="mb-4 h-48 w-full rounded-md object-cover shadow-sm transition-transform duration-300 hover:scale-[1.02]"-->
-		<!--				/>-->
-		<!--				<h3 class="mb-3 text-xl font-semibold">Ultimate Frisbee</h3>-->
-		<!--				<p class="text-subtext0 leading-relaxed">-->
-		<!--					I'm an avid ultimate frisbee player and enjoy both casual games and competitive matches.-->
-		<!--					The sport combines athleticism, strategy, and teamwork in a way that I find incredibly-->
-		<!--					engaging.-->
-		<!--				</p>-->
-		<!--			</div>-->
-
-		<!--			&lt;!&ndash; Photography &ndash;&gt;-->
-		<!--			<div class="bg-base rounded-lg p-5 shadow-sm transition-all duration-300 hover:shadow-md">-->
-		<!--				<img-->
-		<!--					src="https://placehold.co/600x400?text=Photography"-->
-		<!--					alt="Photography"-->
-		<!--					class="mb-4 h-48 w-full rounded-md object-cover shadow-sm transition-transform duration-300 hover:scale-[1.02]"-->
-		<!--				/>-->
-		<!--				<h3 class="mb-3 text-xl font-semibold">Photography</h3>-->
-		<!--				<p class="text-subtext0 mb-3 leading-relaxed">-->
-		<!--					I love capturing moments through photography, especially landscapes and street scenes. My-->
-		<!--					photos on Google Maps have garnered over 350,000 views, which encourages me to keep-->
-		<!--					exploring and sharing my perspective.-->
-		<!--				</p>-->
-		<!--				<a href="/photos" class="group text-accent inline-flex items-center gap-1 hover:underline">-->
-		<!--					View my photo gallery-->
-		<!--					<IconArrowRight-->
-		<!--						size={14}-->
-		<!--						class="transition-transform duration-200 group-hover:translate-x-0.5"-->
-		<!--					/>-->
-		<!--				</a>-->
-		<!--			</div>-->
-		<!--		</div>-->
-
-		<!-- My Dog -->
+		
 		<div class="bg-base rounded-lg p-6 shadow-sm transition-all duration-300 hover:shadow-md">
 			<AnchorHeader
 				level="h3"
@@ -271,13 +175,9 @@
 				/>
 			</div>
 
-			<p class="text-subtext0 leading-relaxed">
-				Bella is a <span class="font-medium">4-year-old</span> goldendoodle who loves to play with
-				her soccer ball, go on walks/runs and explore <b>everything</b>. Whenever we go on a walk we
-				both know we have an adventure ahead of us. <!--todo make auto-->
-			</p>
+			
 		</div>
-	</section>
+	</section> -->
 </div>
 
 <style>

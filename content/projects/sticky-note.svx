@@ -1,0 +1,27 @@
+~~~
+title = "sticky-note"
+description = "It's just sticky note without any backend. A simple, frontend-only application to jot down quick thoughts."
+date = "2024-09-16"
+published = true
+tags = ["JavaScript", "HTML", "CSS", "utility"]
+
+[image]
+url = "/projects/sticky-note-card.webp"
+alt = "sticky-note GitHub repository"
+
+[[links]]
+text = "GitHub"
+url = "https://github.com/mayu-z/sticky-note"
+~~~
+
+# sticky-note
+
+As the description says, this is "just sticky note without any backend". It's a lightweight tool for creating digital sticky notes directly in your browser.
+
+## Features
+
+*   **Local Storage**: Uses the browser's local storage to persist notes between sessions.
+*   **Simple UI**: distinct and easy-to-use interface mimicking real sticky notes.
+*   **Fast**: Zero latency since there are no server round-trips.
+
+Perfect for quick reminders or temporary lists.

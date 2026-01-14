@@ -4,7 +4,6 @@
 	"private": true,
 	"version": "0.9.0",
 	"type": "module",
-	"packageManager": "pnpm@10.15.1",
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build",
@@ -61,14 +60,6 @@
 		"vite": "^6.3.5",
 		"wrangler": "4.43.0",
 		"yaml": "^2.8.1"
-	},
-	"pnpm": {
-		"onlyBuiltDependencies": [
-			"esbuild",
-			"sharp",
-			"workerd",
-			"@tailwindcss/oxide"
-		]
 	},
 	"dependencies": {
 		"leaflet": "^1.9.4"

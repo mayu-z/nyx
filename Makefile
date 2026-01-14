@@ -26,12 +26,12 @@ clean-project-images:
 
 # Development server
 dev:
-	pnpm dev
+	npm run dev
 
 # Build project
 build:
-	pnpm run build
+	npm run build
 
 # Run tests
 test:
-	pnpm run test
+	npm run test

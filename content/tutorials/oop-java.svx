@@ -163,20 +163,19 @@ public class Dog extends Animal {
     }
 }
 ```
-```mermaid
-classDiagram
-    class Animal {
-        +eat()
-    }
-    class Dog {
-        +bark()
-    }
-    class Cat {
-        +meow()
-    }
+```
+Class Hierarchy:
 
-    Animal <|-- Dog
-    Animal <|-- Cat
+Animal (parent class)
+├── eat() method
+│
+├── Dog (extends Animal)
+│   ├── bark() method
+│   └── inherits eat() method
+│
+└── Cat (extends Animal)
+    ├── meow() method
+    └── inherits eat() method
 
 ```
 

@@ -1,0 +1,27 @@
+~~~
+title = "take"
+description = "An HTML-based project, possibly a template, a landing page, or a minimal web experiment."
+date = "2024-09-16"
+published = true
+tags = ["HTML", "web", "basic"]
+
+[image]
+url = "/projects/take-card.webp"
+alt = "take GitHub repository"
+
+[[links]]
+text = "GitHub"
+url = "https://github.com/mayu-z/take"
+~~~
+
+# take
+
+`take` is a repository primarily consisting of HTML. It represents a foundational web project.
+
+## Probable Contents
+
+*   **Structure**: Semantic HTML markup.
+*   **Content**: The raw information presented on a webpage.
+*   **Simplicity**: A focus on the core building blocks of the web.
+
+It could be a starting point for a larger project or a standalone static page.

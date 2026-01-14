@@ -7,10 +7,13 @@ export default defineConfig({
 	plugins: [
 		tailwindcss(),
 		sveltekit(),
-		visualizer({
-			emitFile: true,
-			filename: 'stats.html'
-		})
+		{
+			...visualizer({
+				emitFile: true,
+				filename: 'stats.html'
+			}),
+			apply: 'build'
+		}
 	],
 	server: {
 		fs: {

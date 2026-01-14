@@ -53,14 +53,15 @@ export const experienceTimeline: ExperienceTimelineItem[] = [
 			'As CTO, I led the development of StorageBox, an innovative startup revolutionizing eco-friendly Shopify fulfillment with edge based sustainable warehousing technology and seamless logistics integrations.'
 	},
 	{
-		company: 'Hack Canada',
+		company: 'Deep Hackathon',
 		role: 'Cofounder',
 		url: 'https://hackcanada.org/',
-		logoUrl: '/logos/hackcanada.svg',
+		logoUrl: '/logos/hero.svg',
 		logoAlt: 'Hack Canada Logo',
 		startDate: '2024-09-01',
 		endDate: '2025-05-01',
 		details:
-			"Co-launched Hack Canada, Hackathons Canada's premier national hackathon series. Organized the inaugural event (February 21–23, 2025), secured partnerships with Google, WarpDev, and Microsoft and more, oversaw all development, workshops, and mentorship sessions for 400+ participants."
+			"Co-launched Hack Canada, Hackathons Canada's premier national hackathon series. Organized the inaugural event (February 21–23, 2025), secured partnerships with Google, WarpDev, and Microsoft and more, oversaw all development, workshops, and mentorship sessions for 400+ participants.",
+		logoScale: 0.85
 	}
 ];

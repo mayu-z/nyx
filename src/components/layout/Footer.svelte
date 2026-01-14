@@ -4,7 +4,6 @@
 	import { browser } from '$app/environment';
 	import Site, { Socials } from '$lib/config/common';
 	import { IconClock, IconGitCommit } from '@tabler/icons-svelte';
-	import { persistentWritable } from '$lib/stores/persistance';
 
 	const { value } = $props();
 
@@ -12,44 +11,25 @@
 	const shortSha = PUBLIC_COMMIT_SHA ? PUBLIC_COMMIT_SHA.substring(0, 7) : 'dev';
 	const commitLinkUrl = PUBLIC_COMMIT_SHA ? `${Site.repo.commitBaseUrl}${PUBLIC_COMMIT_SHA}` : '#';
 
-	let timeOnSite = $state('00:00');
+	let currentTime = $state('');
 
-	const totalTimeOnSite = persistentWritable<number>('total-time-on-site', {
-		defaultValue: 0
-	});
-
-	function formatTime(seconds: number): string {
-		const hours = Math.floor(seconds / 3600);
-		const minutes = Math.floor((seconds % 3600) / 60);
-		const secs = seconds % 60;
-
-		if (hours > 0) {
-			return `${hours}:${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
-		}
-		return `${minutes.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+	function updateTime() {
+		currentTime = new Intl.DateTimeFormat('en-US', {
+			timeZone: 'Asia/Kolkata',
+			hour: '2-digit',
+			minute: '2-digit',
+			second: '2-digit',
+			hour12: false
+		}).format(new Date());
 	}
 
 	onMount(() => {
 		if (browser) {
-			const sessionStart = Date.now();
-			const initialTime = $totalTimeOnSite;
-
-			const interval = setInterval(() => {
-				const sessionElapsed = Math.floor((Date.now() - sessionStart) / 1000);
-				timeOnSite = formatTime(initialTime + sessionElapsed);
-			}, 1000);
-
-			const saveTime = () => {
-				const sessionElapsed = Math.floor((Date.now() - sessionStart) / 1000);
-				$totalTimeOnSite = initialTime + sessionElapsed;
-			};
-
-			window.addEventListener('beforeunload', saveTime);
+			updateTime();
+			const interval = setInterval(updateTime, 1000);
 
 			return () => {
 				clearInterval(interval);
-				window.removeEventListener('beforeunload', saveTime);
-				saveTime();
 			};
 		}
 	});
@@ -99,7 +79,7 @@
 		class="bg-crust text-subtext0 border-surface0/20 flex h-auto flex-col items-center justify-center gap-y-3 rounded-lg border p-5 text-sm md:flex-row md:justify-between md:gap-y-0"
 	>
 		<div class="flex flex-wrap items-center justify-center gap-x-3 gap-y-2 md:justify-start">
-			<span class="whitespace-nowrap">© {year} Jason Cameron</span>
+			<span class="whitespace-nowrap">© {year} Mayu Singh</span>
 
 			<span class="text-surface0 hidden md:inline">-</span>
 
@@ -115,9 +95,9 @@
 		</div>
 
 		<div class="flex flex-wrap items-center justify-center gap-x-3 gap-y-2 md:justify-end">
-			<div class="flex items-center gap-1.5" title="How long you have been surfing my site">
+			<div class="flex items-center gap-1.5" title="Current Time (GMT+5:30)">
 				<IconClock size={14} class="text-subtext1" />
-				<span class="text-accent font-mono text-xs">{timeOnSite}</span>
+				<span class="text-accent font-mono text-xs">{currentTime}</span>
 			</div>
 
 			<span class="text-surface0 hidden sm:inline">-</span>

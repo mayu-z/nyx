@@ -15,7 +15,30 @@ import { parse } from 'smol-toml';
 import rehypeExternalLinks from 'rehype-external-links';
 
 const highlighter = await createHighlighter({
-	langs: Object.keys(bundledLanguages),
+	langs: [
+		'javascript',
+		'typescript',
+		'svelte',
+		'html',
+		'css',
+		'json',
+		'yaml',
+		'bash',
+		'shell',
+		'python',
+		'java',
+		'markdown',
+		'sql',
+		'xml',
+		'c',
+		'cpp',
+		'go',
+		'rust',
+		'toml',
+		'ini',
+		'dockerfile',
+		'mermaid'
+	],
 	themes: ['catppuccin-mocha', 'catppuccin-macchiato', 'catppuccin-frappe', 'catppuccin-latte']
 });
 

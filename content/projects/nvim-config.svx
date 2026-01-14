@@ -1,0 +1,29 @@
+~~~
+title = "nvim-config"
+description = "A personal Neovim configuration written in Lua, designed to enhance the development workflow with a tailored set of plugins and keybindings."
+date = "2025-12-26"
+published = true
+featured = true
+tags = ["Lua", "neovim", "config", "developer-tools"]
+
+[image]
+url = "/projects/nvim-config-card.webp"
+alt = "nvim-config GitHub repository"
+
+[[links]]
+text = "GitHub"
+url = "https://github.com/mayu-z/nvim-config"
+~~~
+
+# nvim-config
+
+This repository contains my personal Neovim configuration files. It is built using Lua and leverages a variety of plugins to create a powerful and efficient development environment.
+
+## Key Features
+
+*   **Plugin Management**: Utilizes a modern plugin manager for easy installation and updates.
+*   **LSP Integration**: Comprehensive Language Server Protocol setup for code intelligence.
+*   **Custom Keybindings**: Optimized shortcuts for efficient navigation and editing.
+*   **Theming**: Personalized color schemes and UI enhancements.
+
+This configuration is constantly evolving as I discover new tools and optimize my workflow.

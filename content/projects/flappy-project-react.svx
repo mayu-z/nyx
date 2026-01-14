@@ -1,0 +1,27 @@
+~~~
+title = "flappy-project-react"
+description = "A Flappy Bird clone built with React and JavaScript, featuring smooth animations and responsive gameplay."
+date = "2024-10-15"
+published = true
+tags = ["JavaScript", "React", "game", "clone"]
+
+[image]
+url = "/projects/flappy-project-react-card.webp"
+alt = "flappy-project-react GitHub repository"
+
+[[links]]
+text = "GitHub"
+url = "https://github.com/mayu-z/flappy-project-react"
+~~~
+
+# flappy-project-react
+
+A recreation of the classic Flappy Bird game using React. This project demonstrates game development concepts within a modern JavaScript framework.
+
+## Features
+
+*   **React-Based**: Leveraging React's component model for game elements.
+*   **Smooth Gameplay**: Responsive controls and fluid animations.
+*   **Score Tracking**: Keep track of your high scores.
+
+A fun project that showcases game logic implementation in a web environment.

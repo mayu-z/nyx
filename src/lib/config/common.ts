@@ -1,6 +1,6 @@
 import {
 	type Icon,
-	IconBrandBluesky,
+	IconBrandCodepen,
 	IconBrandGithub,
 	IconBrandInstagram,
 	IconBrandLinkedin,
@@ -33,7 +33,7 @@ interface Site {
 		linkedin: string;
 		calcom: string;
 		wakatime: string;
-		bluesky: string;
+		codepen: string;
 		instagram: string;
 		x: string;
 	};
@@ -41,12 +41,12 @@ interface Site {
 }
 
 const Site: Site = {
-	name: 'Jason Cameron',
-	url: dev ? 'http://localhost:5173' : 'https://jasoncameron.dev',
+	name: 'Mayu Singh',
+	url: dev ? 'http://localhost:5173' : 'https://mayusingh.dev',
 	description:
-		'Jason Cameron - Senior Software Engineer in Toronto, Canada. I like occasionally building cool shit',
+		'Mayu Singh - Senior Software Engineer in Toronto, Canada. I like occasionally building cool shit',
 	tags: [
-		'Jason Cameron',
+		'Mayu Singh',
 		'Senior Software Engineer',
 		'Toronto Software Developer',
 		'Canada',
@@ -65,8 +65,8 @@ const Site: Site = {
 		'Software Architecture'
 	],
 	seo: {
-		author: 'Jason Cameron',
-		birthDate: '2006-04-19',
+		author: 'Mayu Singh',
+		birthDate: '2004-02-12',
 		worksFor: {
 			name: 'Stan',
 			url: 'https://stan.store'
@@ -83,17 +83,17 @@ const Site: Site = {
 		key: 'portfolio'
 	},
 	out: {
-		github: 'https://github.com/JasonLovesDoggo',
-		linkedin: 'https://www.linkedin.com/in/jsoncameron/',
-		calcom: 'https://cal.com/jsoncam/15min',
+		github: 'https://github.com/mayu-z',
+		linkedin: 'https://www.linkedin.com/in/mayu-esh/',
+		calcom: 'https://cal.com/mayuresh-singh/secret',
 		wakatime: 'https://wakatime.com/@jasonlovesdoggo',
-		bluesky: 'https://bsky.app/profile/jsn.cam',
-		instagram: 'https://www.instagram.com/jsn.cam/',
-		x: 'https://x.com/tomlparser'
+		codepen: 'https://codepen.io/take-',
+		instagram: 'https://www.instagram.com/inyorskin/',
+		x: 'https://x.com/Mayday_lives'
 	},
 	repo: {
-		url: 'https://github.com/JasonLovesDoggo/nyx',
-		commitBaseUrl: 'https://github.com/JasonLovesDoggo/nyx/commit/'
+		url: 'https://github.com/mayu-z/nyx',
+		commitBaseUrl: 'https://github.com/mayu-z/nyx/commit/'
 	}
 };
 
@@ -119,9 +119,9 @@ export const Socials = [
 		footer: true
 	},
 	{
-		url: Site.out.bluesky,
-		label: 'Bluesky',
-		icon: IconBrandBluesky,
+		url: Site.out.codepen,
+		label: 'CodePen',
+		icon: IconBrandCodepen,
 		footer: false
 	},
 	{
