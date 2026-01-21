@@ -68,20 +68,14 @@
 				</p>
 
 				<p class="text-subtext0 text-base leading-relaxed">
-					Some of my more notable projects include {@render GithubProject(
-						'RedditVideoMakerBot',
-						'https://github.com/elebumm/RedditVideoMakerBot',
-						8275
-					)}, where I reverse engineered TikTok's TTS API, and
-					{@render GithubProject('Anubis', '/projects/anubis', 14732)}, an anti-scraper tool
-					currently protecting infrastructure at The Linux Foundation and the UN. My work focuses on
-					backend development and system architecture. I maintain several services including
-					{@render ExternalLink('https://maclyonsden.com/', 'metropolis')},
-					{@render ExternalLink('https://ctf.mcpt.ca', 'mCTF')},
-					{@render ExternalLink('https://mcpt.ca', 'MCPT')}, and {@render ExternalLink(
-						'https://jasoncameron.dev/foodle/',
-						'Foodle'
-					)}.
+					Some of my more notable work includes architecting the logistics infrastructure at
+					{@render ExternalLink('https://www.aexiz.com/', 'Aexiz')} as CTO, where we leverage edge
+					computing for sustainable fulfillment. I also co-launched
+					{@render ExternalLink('https://deep.hackathon.com/', 'Deep')}, a national platform for
+					student innovation, and develop high-scale AI systems at
+					{@render ExternalLink('https://stan.store', 'Stan')}. My niche lies at the intersection of
+					robust backend development and system design, with a particular interest in building
+					efficient, maintainable architectures that scale.
 				</p>
 
 				<p class="text-subtext0 text-base leading-relaxed">

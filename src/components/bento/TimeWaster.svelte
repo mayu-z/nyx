@@ -29,6 +29,7 @@
 	async function fetchGlobalCount() {
 		try {
 			const response = await fetch('/api/counter');
+			if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
 			const data = await response.json();
 			
 			if (data.count !== undefined) {
@@ -41,7 +42,8 @@
 				}
 			}
 		} catch (error) {
-			console.error('Error fetching global count:', error);
+			// Silently fail in development - use local counter as fallback
+			console.debug('Note: Global counter not available, using local count');
 		}
 	}
 
@@ -51,14 +53,14 @@
 			const response = await fetch('/api/counter', {
 				method: 'POST'
 			});
+			if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
 			const data = await response.json();
 			
 			if (data.count !== undefined) {
 				globalCount = data.count;
 			}
 		} catch (error) {
-			console.error('Error incrementing counter:', error);
-			// Optimistic update on error
+			// Optimistic update on error - silently fail with local counter
 			globalCount++;
 		}
 	}

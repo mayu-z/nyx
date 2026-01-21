@@ -4,6 +4,7 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<title>Mayu | Terminal Portfolio</title>
+		<link rel="icon" type="image/x-icon" href="/favicon.ico" />
 		<script src="https://cdn.tailwindcss.com"></script>
 		<link
 			href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600&display=swap"
@@ -14,20 +15,25 @@
 				font-family: 'Inter', sans-serif;
 				overflow: hidden;
 			}
+
 			.terminal-font {
 				font-family: 'JetBrains Mono', monospace;
 			}
+
 			/* Custom scrollbar for the terminal */
 			.custom-scrollbar::-webkit-scrollbar {
 				width: 8px;
 			}
+
 			.custom-scrollbar::-webkit-scrollbar-track {
 				background: rgba(0, 0, 0, 0.1);
 			}
+
 			.custom-scrollbar::-webkit-scrollbar-thumb {
 				background: rgba(255, 255, 255, 0.1);
 				border-radius: 4px;
 			}
+
 			.custom-scrollbar::-webkit-scrollbar-thumb:hover {
 				background: rgba(255, 255, 255, 0.2);
 			}
@@ -41,7 +47,9 @@
 				}
 			}
 		</script>
+		<link rel="stylesheet" href="/index.css" />
 	</head>
+
 	<body class="h-screen w-screen overflow-hidden bg-[#1e1e2e] text-[#cdd6f4]">
 		<div id="root"></div>
 		<script type="module" src="/index.tsx"></script>

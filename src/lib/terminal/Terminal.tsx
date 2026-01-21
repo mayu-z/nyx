@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
-import { TerminalLine } from '../types';
+import type { TerminalLine } from './types';
 import {
 	PREFIX,
 	MAYU_ASCII,
@@ -7,7 +7,7 @@ import {
 	PROJECTS,
 	SKILLS,
 	PROGRAMMING_QUOTES
-} from '../constants';
+} from './constants';
 import HeartRain from './HeartRain';
 
 interface TerminalProps {
@@ -34,13 +34,11 @@ const Terminal: React.FC<TerminalProps> = ({ theme, onThemeToggle, onHeartRainTo
 	const matrixCanvasRef = useRef<HTMLCanvasElement>(null);
 	const terminalContainerRef = useRef<HTMLDivElement>(null);
 
-	// Update
 	const handleInputChange = (value: string) => {
 		setInputValue(value);
 
 		const commandInput = value.trim().toLowerCase();
 		if (commandInput) {
-			// Filter
 			const matches = HELP_COMMANDS.map((h) => h.cmd).filter((cmd) => cmd.startsWith(commandInput));
 			setSuggestedCommands(matches);
 		} else {
@@ -48,24 +46,20 @@ const Terminal: React.FC<TerminalProps> = ({ theme, onThemeToggle, onHeartRainTo
 		}
 	};
 
-	// Auto-scroll
 	useEffect(() => {
 		if (scrollRef.current) {
 			scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
 		}
 	}, [history]);
 
-	// Focus input
 	const handleTerminalClick = () => {
 		inputRef.current?.focus();
 	};
 
-	// Notify parent when heart rain mode changes
 	useEffect(() => {
 		onHeartRainToggle(heartRainMode);
 	}, [heartRainMode, onHeartRainToggle]);
 
-	// Matrix effect
 	useEffect(() => {
 		if (!matrixMode || !matrixCanvasRef.current) return;
 
@@ -113,7 +107,6 @@ const Terminal: React.FC<TerminalProps> = ({ theme, onThemeToggle, onHeartRainTo
 
 		setHistory((prev) => [...prev, { type: 'input', content: trimmedInput }]);
 
-		// Add command to history
 		setCommandHistory((prev) => [...prev, trimmedInput]);
 		setHistoryIndex(-1);
 
@@ -179,8 +172,10 @@ const Terminal: React.FC<TerminalProps> = ({ theme, onThemeToggle, onHeartRainTo
 					...prev,
 					{ type: 'output', content: '--- RECENT WORKS ---' },
 					...PROJECTS.map((p) => ({
-						type: 'output' as const,
-						content: `> ${p.title}\n  ${p.description}\n  Tech: ${p.tech.join(', ')}`
+						type: 'project' as const,
+						content: p.description,
+						title: p.title,
+						tech: p.tech
 					}))
 				]);
 				break;
@@ -381,14 +376,12 @@ const Terminal: React.FC<TerminalProps> = ({ theme, onThemeToggle, onHeartRainTo
 	};
 
 	const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-		// Tab key autocomplete
 		if (e.key === 'Tab' && suggestedCommands.length === 1) {
 			e.preventDefault();
 			setInputValue(suggestedCommands[0]);
 			setSuggestedCommands([]);
 		}
 
-		// Arrow up - navigate to older commands
 		if (e.key === 'ArrowUp') {
 			e.preventDefault();
 			if (commandHistory.length === 0) return;
@@ -401,7 +394,6 @@ const Terminal: React.FC<TerminalProps> = ({ theme, onThemeToggle, onHeartRainTo
 			setSuggestedCommands([]);
 		}
 
-		// Arrow down - navigate to newer commands
 		if (e.key === 'ArrowDown') {
 			e.preventDefault();
 			if (commandHistory.length === 0 || historyIndex === -1) return;
@@ -409,7 +401,6 @@ const Terminal: React.FC<TerminalProps> = ({ theme, onThemeToggle, onHeartRainTo
 			const newIndex = historyIndex + 1;
 
 			if (newIndex >= commandHistory.length) {
-				// Past the most recent command, clear input
 				setHistoryIndex(-1);
 				setInputValue('');
 			} else {
@@ -429,7 +420,7 @@ const Terminal: React.FC<TerminalProps> = ({ theme, onThemeToggle, onHeartRainTo
 			<div ref={scrollRef} className="h-full overflow-y-auto">
 				<div className="mb-4 space-y-2">
 					{history.map((line, i) => (
-						<div key={i} className="break-words whitespace-pre-wrap">
+						<div key={i} className="wrap-break-word whitespace-pre-wrap">
 							{line.type === 'input' && (
 								<span className="flex">
 									<span className="text-[#94e2d5]">mayu</span>
@@ -505,6 +496,19 @@ const Terminal: React.FC<TerminalProps> = ({ theme, onThemeToggle, onHeartRainTo
 								</div>
 							)}
 							{line.type === 'ls' && <div className="ml-6 text-[#a6e3a1]">{line.content}</div>}
+							{line.type === 'project' && (
+								<div className="mb-3 ml-6">
+									<div className="font-semibold text-[#a6e3a1]">&gt; {line.title}</div>
+									<div className={`${theme === 'dark' ? 'text-[#bac2de]' : 'text-zinc-700'} ml-2`}>
+										{line.content}
+									</div>
+									<div
+										className={`${theme === 'dark' ? 'text-[#94e2d5]' : 'text-zinc-600'} ml-2 text-sm`}
+									>
+										Tech: {line.tech?.join(', ')}
+									</div>
+								</div>
+							)}
 						</div>
 					))}
 				</div>
@@ -529,7 +533,6 @@ const Terminal: React.FC<TerminalProps> = ({ theme, onThemeToggle, onHeartRainTo
 					/>
 				</form>
 
-				{/* Command suggestions */}
 				{suggestedCommands.length > 0 && (
 					<div className="mt-2 text-xs text-zinc-500">
 						Suggested commands: {suggestedCommands.join(', ')}
@@ -537,10 +540,13 @@ const Terminal: React.FC<TerminalProps> = ({ theme, onThemeToggle, onHeartRainTo
 				)}
 			</div>
 
-			{/* Heart Rain Effect - constrained to terminal */}
-			{heartRainMode && <HeartRain isActive={heartRainMode} containerRef={terminalContainerRef} />}
+			{heartRainMode && (
+				<HeartRain
+					isActive={heartRainMode}
+					containerRef={terminalContainerRef as React.RefObject<HTMLElement>}
+				/>
+			)}
 
-			{/* Matrix Effect */}
 			{matrixMode && (
 				<canvas
 					ref={matrixCanvasRef}

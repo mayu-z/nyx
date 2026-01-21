@@ -17,11 +17,10 @@ const HeartRain: React.FC<HeartRainProps> = ({ isActive, containerRef }) => {
 	const canvasRef = useRef<HTMLCanvasElement>(null);
 	const heartsRef = useRef<Heart[]>([]);
 	const imageRef = useRef<HTMLImageElement | null>(null);
-	const animationFrameRef = useRef<number>();
+	const animationFrameRef = useRef<number | undefined>(undefined);
 
 	useEffect(() => {
 		if (!isActive) {
-			// Clear hearts when inactive
 			heartsRef.current = [];
 			if (animationFrameRef.current) {
 				cancelAnimationFrame(animationFrameRef.current);
@@ -36,7 +35,6 @@ const HeartRain: React.FC<HeartRainProps> = ({ isActive, containerRef }) => {
 		const ctx = canvas.getContext('2d');
 		if (!ctx) return;
 
-		// Set canvas size to match container
 		const resizeCanvas = () => {
 			const rect = container.getBoundingClientRect();
 			canvas.width = rect.width;
@@ -47,36 +45,29 @@ const HeartRain: React.FC<HeartRainProps> = ({ isActive, containerRef }) => {
 		const resizeObserver = new ResizeObserver(resizeCanvas);
 		resizeObserver.observe(container);
 
-		// Load heart image
 		const img = new Image();
 		img.src = '/heart.png';
 		imageRef.current = img;
 
-		// Initialize hearts array
-		const numColumns = Math.floor(canvas.width / 40); // Spacing similar to Matrix
+		const numColumns = Math.floor(canvas.width / 40);
 
-		// Create initial hearts at random positions
 		for (let i = 0; i < numColumns; i++) {
 			heartsRef.current.push({
 				x: i * (canvas.width / numColumns) + Math.random() * 20,
-				y: Math.random() * -canvas.height, // Start above screen
-				speed: 2 + Math.random() * 4, // Random speed
-				size: 20 + Math.random() * 40, // Random size (20-60px)
-				opacity: 0.6 + Math.random() * 0.4 // Random opacity (0.6-1.0)
+				y: Math.random() * -canvas.height,
+				speed: 2 + Math.random() * 4,
+				size: 20 + Math.random() * 40,
+				opacity: 0.6 + Math.random() * 0.4
 			});
 		}
 
 		const animate = () => {
-			// Semi-transparent black to create trail effect (higher opacity = shorter trails)
 			ctx.fillStyle = 'rgba(0, 0, 0, 0.15)';
 			ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-			// Update and draw hearts
 			heartsRef.current.forEach((heart, index) => {
-				// Update position
 				heart.y += heart.speed;
 
-				// Reset heart if it goes off screen
 				if (heart.y > canvas.height + heart.size) {
 					heart.y = -heart.size;
 					heart.x = index * (canvas.width / numColumns) + Math.random() * 20;
@@ -85,7 +76,6 @@ const HeartRain: React.FC<HeartRainProps> = ({ isActive, containerRef }) => {
 					heart.opacity = 0.6 + Math.random() * 0.4;
 				}
 
-				// Draw heart
 				if (imageRef.current && imageRef.current.complete) {
 					ctx.globalAlpha = heart.opacity;
 					ctx.drawImage(imageRef.current, heart.x, heart.y, heart.size, heart.size);
@@ -96,12 +86,10 @@ const HeartRain: React.FC<HeartRainProps> = ({ isActive, containerRef }) => {
 			animationFrameRef.current = requestAnimationFrame(animate);
 		};
 
-		// Start animation when image is loaded
 		img.onload = () => {
 			animate();
 		};
 
-		// Start animation immediately if image is already cached
 		if (img.complete) {
 			animate();
 		}

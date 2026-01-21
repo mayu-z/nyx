@@ -2,7 +2,8 @@ import type { Icon } from '@tabler/icons-svelte';
 
 interface NavItem {
 	title: string;
-	href: string;
+	href?: string;
+	action?: string; // For special actions like opening terminal overlay
 	icon?: Icon; // Keeping icon prop for potential future use
 	external?: boolean; // Flag for external links
 }
@@ -12,10 +13,10 @@ export const mainNavItems: NavItem[] = [
 	{ title: 'About', href: '/about' },
 	{ title: 'Posts', href: '/posts' },
 	{ title: 'Projects', href: '/projects' },
-	{ title: 'Resume', href: '/resume.pdf', external: true }
+	{ title: 'Resume', href: '/resume' }
 ];
 
-export const moreNavItems: NavItem[] = [{ title: 'Terminal', href: '/terminal' }];
+export const moreNavItems: NavItem[] = [];
 // Example 'More' items - add your 20+ items here
 // export const moreNavItems: NavItem[] = [
 // 	{ title: 'Blog', href: '/blog' }, // Example internal

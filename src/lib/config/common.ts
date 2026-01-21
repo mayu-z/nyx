@@ -36,11 +36,21 @@ interface Site {
 		codepen: string;
 		instagram: string;
 		x: string;
+		bluesky: string;
 	};
 	repo: { url: string; commitBaseUrl: string };
 }
 
-const Site: Site = {
+const siteConfig: Site = {
+	abacus: {
+		instance: 'default-instance',
+		namespace: 'default-namespace',
+		key: 'default-key'
+	},
+	repo: {
+		url: 'https://github.com/mayu-z/nyx',
+		commitBaseUrl: 'https://github.com/mayu-z/nyx/commit/'
+	},
 	name: 'Mayu Singh',
 	url: dev ? 'http://localhost:5173' : 'https://mayusingh.dev',
 	description:
@@ -72,15 +82,10 @@ const Site: Site = {
 			url: 'https://stan.store'
 		},
 		location: {
-			city: 'Toronto',
-			region: 'Ontario',
-			country: 'Canada'
+			city: '	Bengaluru',
+			region: 'Urban',
+			country: 'India'
 		}
-	},
-	abacus: {
-		instance: 'https://abacus.jasoncameron.dev',
-		namespace: 'jasoncameron',
-		key: 'portfolio'
 	},
 	out: {
 		github: 'https://github.com/mayu-z',
@@ -89,49 +94,46 @@ const Site: Site = {
 		wakatime: 'https://wakatime.com/@jasonlovesdoggo',
 		codepen: 'https://codepen.io/take-',
 		instagram: 'https://www.instagram.com/inyorskin/',
-		x: 'https://x.com/Mayday_lives'
-	},
-	repo: {
-		url: 'https://github.com/mayu-z/nyx',
-		commitBaseUrl: 'https://github.com/mayu-z/nyx/commit/'
+		x: 'https://x.com/Mayday_lives',
+		bluesky: 'https://bsky.app/profile/mayusingh.dev'
 	}
 };
 
-export default Site;
+export default siteConfig;
 
 export const Socials = [
 	{
-		url: Site.out.github,
+		url: siteConfig.out.github,
 		label: 'GitHub',
 		icon: IconBrandGithub,
 		footer: true
 	},
 	{
-		url: Site.out.linkedin,
+		url: siteConfig.out.linkedin,
 		label: 'LinkedIn',
 		icon: IconBrandLinkedin,
 		footer: true
 	},
 	{
-		url: Site.out.x,
+		url: siteConfig.out.x,
 		label: 'X',
 		icon: IconBrandX,
 		footer: true
 	},
 	{
-		url: Site.out.codepen,
+		url: siteConfig.out.codepen,
 		label: 'CodePen',
 		icon: IconBrandCodepen,
 		footer: false
 	},
 	{
-		url: Site.out.instagram,
+		url: siteConfig.out.instagram,
 		label: 'Instagram',
 		icon: IconBrandInstagram,
 		footer: true
 	},
 	{
-		url: Site.out.wakatime,
+		url: siteConfig.out.wakatime,
 		label: 'WakaTime',
 		icon: Wakatime as unknown as Icon,
 		footer: false

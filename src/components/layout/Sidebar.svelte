@@ -5,9 +5,16 @@
 	import ThemeSelector from '$components/themes/ThemeSelector.svelte';
 	import ColorSelector from '$components/themes/ColorSelector.svelte';
 
-	let { isOpen, closeSidebar } = $props<{ isOpen: boolean; closeSidebar: () => void }>();
+	let { isOpen, closeSidebar } = $props<{ 
+		isOpen: boolean; 
+		closeSidebar: () => void;
+	}>();
 
 	let currentPath = $derived(page.url.pathname);
+	
+	function handleItemClick() {
+		closeSidebar();
+	}
 </script>
 
 {#if isOpen}
@@ -48,18 +55,18 @@
 	<nav class="flex-1 overflow-y-auto p-4">
 		<ul class="space-y-2" role="list">
 			{#each mainNavItems as item (item.title)}
-				{@const isActive = !item.external && currentPath === item.href}
+				{@const isActive = item.href && !item.external && currentPath === item.href}
 				<li>
-					<a
-						href={item.href}
-						target={item.external ? '_blank' : undefined}
-						rel={item.external ? 'noopener noreferrer' : undefined}
-						class="hover:bg-surface0 focus:bg-surface1 block rounded p-2 transition-colors duration-150 focus:outline-none"
-						aria-current={isActive ? 'page' : undefined}
-						onclick={closeSidebar}
-					>
-						{item.title}
-					</a>
+						<a
+							href={item.href}
+							target={item.external ? '_blank' : undefined}
+							rel={item.external ? 'noopener noreferrer' : undefined}
+							class="hover:bg-surface0 focus:bg-surface1 block rounded p-2 transition-colors duration-150 focus:outline-none"
+							aria-current={isActive ? 'page' : undefined}
+							onclick={handleItemClick}
+						>
+							{item.title}
+						</a>
 				</li>
 			{/each}
 
@@ -68,7 +75,7 @@
 			<li class="text-subtext0 px-2 py-1 text-xs font-semibold tracking-wider uppercase">More</li>
 
 			{#each moreNavItems as item (item.title)}
-				{@const isActive = !item.external && currentPath === item.href}
+				{@const isActive = item.href && !item.external && currentPath === item.href}
 				<li>
 					<a
 						href={item.href}

@@ -1,9 +1,14 @@
 <script lang="ts">
 	import Breadcrumb from './Breadcrumb.svelte';
+	import TerminalButton from '../TerminalButton.svelte';
 	import { IconMenu2 } from '@tabler/icons-svelte';
 	import { mainNavItems } from '$lib/config/navItems';
+	
 
-	let { toggleSidebar } = $props<{ toggleSidebar: () => void }>();
+	let { toggleSidebar, toggleTerminal } = $props<{ 
+		toggleSidebar: () => void;
+		toggleTerminal: () => void;
+	}>();
 </script>
 
 <div class="header sticky top-0 z-10 flex h-24 items-center justify-between p-5 pb-10 select-none">
@@ -35,6 +40,9 @@
 		>
 			More...
 		</button>
+		<div class="ml-2">
+			<TerminalButton {toggleTerminal} />
+		</div>
 	</nav>
 </div>
 

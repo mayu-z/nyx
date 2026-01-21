@@ -7,8 +7,7 @@
 		IconArticle,
 		IconCode,
 		IconCalendarEvent,
-		IconActivity,
-		IconTerminal2
+		IconActivity
 	} from '@tabler/icons-svelte';
 	import Site from '$lib/config/common';
 	import { Home } from '$lib/config/pages';
@@ -32,30 +31,7 @@
 
 	let { data }: { data: PageData } = $props();
 	let isNameHovered = $state(false);
-	let showTerminal = $state(false);
 	const langTotal = $derived((data.commitData?.languages || []).reduce((a, l) => a + l.size, 0));
-
-	function openTerminal() {
-		showTerminal = true;
-	}
-
-	function closeTerminal() {
-		showTerminal = false;
-	}
-
-	onMount(() => {
-		// Listen for close message from terminal iframe
-		const handleMessage = (event: MessageEvent) => {
-			console.log('Parent received message:', event.data);
-			if (event.data?.type === 'CLOSE_TERMINAL' || 
-				event.data?.type === 'MINIMIZE_TERMINAL') {
-				console.log('Closing terminal...');
-				closeTerminal();
-			}
-		};
-		window.addEventListener('message', handleMessage);
-		return () => window.removeEventListener('message', handleMessage);
-	});
 </script>
 
 <div class="mx-auto max-w-6xl space-y-12 px-0 py-8 md:space-y-16 md:px-4 md:py-12">
@@ -130,14 +106,6 @@
 					<span class="text-surface1 text-xs">|</span>
 				{/if}
 			{/each}
-			<span class="text-surface1 text-xs">|</span>
-			<button
-				onclick={openTerminal}
-				class="group text-subtext1 hover:text-accent inline-flex items-center gap-1 text-sm transition-colors duration-200"
-			>
-				<IconTerminal2 size={16} />
-				<span>Terminal</span>
-			</button>
 			<span class="text-surface1 text-xs">|</span>
 			<a
 				href="/about"
@@ -347,22 +315,3 @@
 	</section>
 </div>
 
-<!-- Terminal Overlay -->
-{#if showTerminal}
-<div 
-	class="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/40 backdrop-blur-sm animate-in fade-in duration-150 keyboard-hide"
-	onclick={(e) => {
-		if (e.target === e.currentTarget) closeTerminal();
-	}}
-	role="presentation"
->
-	<div class="w-full h-full max-w-6xl max-h-screen flex items-center justify-center">
-		<iframe
-			src="/terminal/index.html"
-			title="Terminal Portfolio"
-			class="w-full h-full border-0 animate-in fade-in zoom-in duration-150"
-			   sandbox="allow-scripts allow-same-origin allow-forms allow-top-navigation"
-		/>
-	</div>
-</div>
-{/if}

@@ -3,6 +3,7 @@
 	import Header from '../components/layout/Header.svelte';
 	import Footer from '../components/layout/Footer.svelte';
 	import Sidebar from '../components/layout/Sidebar.svelte';
+	import TerminalWrapper from '../components/TerminalWrapper.svelte';
 	import { page } from '$app/state';
 	import { onNavigate } from '$app/navigation';
 	import Site from '$lib/config/common';
@@ -16,11 +17,18 @@
 	);
 
 	let isSidebarOpen = $state(false);
+	let isTerminalOpen = $state(false);
+	
 	function toggleSidebar() {
 		isSidebarOpen = !isSidebarOpen;
 	}
 	function closeSidebar() {
 		isSidebarOpen = false;
+	}
+
+	function toggleTerminal() {
+		isTerminalOpen = !isTerminalOpen;
+		closeSidebar();
 	}
 
 	// Enable View Transitions API for SvelteKit navigation
@@ -108,17 +116,19 @@
 			},
 			identifier: Site.url
 		})}
-	</script>`}
+	<\/script>`}
 </svelte:head>
 
 <div class="text-text mx-auto flex min-h-screen max-w-[90%] flex-col md:max-w-[80%]">
 	{#if $BackgroundEnabled}
 		<BackgroundEffect />
 	{/if}
-	<Header {toggleSidebar} />
+	<Header {toggleSidebar} {toggleTerminal} />
 	<Sidebar isOpen={isSidebarOpen} {closeSidebar} />
 	<main class="flex-1 px-0 py-8 md:px-5">
 		{@render children?.()}
 	</main>
 	<Footer value={data.footerData.value} />
 </div>
+
+<TerminalWrapper bind:isOpen={isTerminalOpen} />
