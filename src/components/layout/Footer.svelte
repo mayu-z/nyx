@@ -79,7 +79,13 @@
 		class="bg-crust text-subtext0 border-surface0/20 flex h-auto flex-col items-center justify-center gap-y-3 rounded-lg border p-5 text-sm md:flex-row md:justify-between md:gap-y-0"
 	>
 		<div class="flex flex-wrap items-center justify-center gap-x-3 gap-y-2 md:justify-start">
-			<span class="whitespace-nowrap">© {year} Mayu Singh</span>
+			<span class="whitespace-nowrap">AGPL v3 • <a
+  href="https://github.com/mayu-z/nyx"
+  target="_blank"
+  rel="noopener noreferrer"
+>
+  Source
+</a></span>
 
 			<span class="text-surface0 hidden md:inline">-</span>
 
