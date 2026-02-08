@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import TerminalWindow from './components/TerminalWindow';
 import Terminal from './components/Terminal';
 import LoadingScreen from './components/LoadingScreen';
+import { ClickCounter } from './src/components/ClickCounter';
 
 const App: React.FC = () => {
 	const [theme, setTheme] = useState<'dark' | 'light'>('dark');
@@ -56,14 +57,8 @@ const App: React.FC = () => {
 				/>
 			</div>
 
-			{/* Main Terminal UI */}
-			<TerminalWindow theme={theme}>
-				<Terminal
-					theme={theme}
-					onThemeToggle={toggleTheme}
-					onHeartRainToggle={handleHeartRainToggle}
-				/>
-			</TerminalWindow>
+			{/* Click Counter */}
+			<ClickCounter />
 		</div>
 	);
 };
