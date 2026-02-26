@@ -7,8 +7,8 @@ declare global {
 		// interface PageData {}
 		// interface PageState {}
 		interface Platform {
-			env: {
-				NYXCACHE: KVNamespace;
+			env?: {
+				NYXCACHE?: KVNamespace;
 			};
 		}
 	}
