@@ -28,11 +28,11 @@ export const PROJECTS = [
 		link: 'https://github.com/mayu-z/flappy-project-react'
 	},
 	{
-		title: 'blockain',
+		title: 'blockchain',
 		description:
 			'An exploration into blockchain technology with a block-based application implementation.',
 		tech: ['JavaScript', 'Blockchain', 'Web'],
-		link: 'https://github.com/mayu-z/blockain'
+		link: 'https://github.com/mayu-z/blockchain'
 	},
 	{
 		title: 'choker',

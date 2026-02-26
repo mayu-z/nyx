@@ -1,22 +1,22 @@
 ~~~
-title = "blockain"
+title = "blockchain"
 description = "An exploration into blockchain technology or a block-based application, implemented using JavaScript."
 date = "2025-11-23"
 published = true
 tags = ["JavaScript", "blockchain", "web"]
 
 [image]
-url = "/projects/blockain-card.webp"
-alt = "blockain GitHub repository"
+url = "/projects/blockchain-card.webp"
+alt = "blockchain GitHub repository"
 
 [[links]]
 text = "GitHub"
-url = "https://github.com/mayu-z/blockain"
+url = "https://github.com/mayu-z/blockchain"
 ~~~
 
-# blockain
+# blockchain
 
-`blockain` is a project that appears to delve into the world of blocks—whether that refers to blockchain technology, a block-based game, or a modular UI system.
+`blockchain` is a project that appears to delve into the world of blocks—whether that refers to blockchain technology, a block-based game, or a modular UI system.
 
 ## Overview
 

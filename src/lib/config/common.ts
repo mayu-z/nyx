@@ -54,21 +54,20 @@ const siteConfig: Site = {
 	name: 'Mayu Singh',
 	url: dev ? 'http://localhost:5173' : 'https://mayusingh.dev',
 	description:
-		'Mayu Singh - Senior Software Engineer in Toronto, Canada. I like occasionally building cool shit',
+		'Mayu Singh -  Software Engineer in Bengaluru, India. I like occasionally building cool shit',
 	tags: [
 		'Mayu Singh',
 		'Senior Software Engineer',
-		'Toronto Software Developer',
-		'Canada',
+		'Bengaluru Software Developer',
+		'India',
 		'Golang Developer',
-		'Python Developer',
 		'DevOps Engineer',
 		'Software Engineering',
 		'Backend Developer',
 		'Full Stack Developer',
 		'Hackathon Developer',
-		'Toronto Tech',
-		'Canadian Developer',
+		'Bengaluru Tech',
+		'Indian Developer',
 		'Web Development',
 		'Cloud Computing',
 		'API Development',
@@ -78,8 +77,8 @@ const siteConfig: Site = {
 		author: 'Mayu Singh',
 		birthDate: '2004-02-12',
 		worksFor: {
-			name: 'Stan',
-			url: 'https://stan.store'
+			name: 'Aexiz',
+			url: 'https://aexiz.com'
 		},
 		location: {
 			city: '	Bengaluru',
