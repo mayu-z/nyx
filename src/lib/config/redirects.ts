@@ -13,7 +13,7 @@ const redirects = createRedirects([
 	{ paths: ['/cal', '/chat'], url: Site.out.calcom },
 	{ paths: '/repo', url: Site.repo.url },
 	// { paths: '/abacus', url: 'https://v2.jasoncameron.dev/abacus' },
-	{ paths: '/resume', url: '/resume.pdf' },
+	{ paths: '/resume', url: '/resume.pdf' }
 	// { paths: '/foodle', url: 'https://foodle.jasoncameron.dev' },
 	// { paths: '/random-color', url: 'https://pickacolor.jasoncameron.dev' }
 ]);
