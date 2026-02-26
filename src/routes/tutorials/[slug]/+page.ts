@@ -6,9 +6,9 @@
 import { getAllTutorials, getTutorialBySlug } from '$lib/content/tutorials';
 import { createContentPage } from '$lib/utils/pagemeta';
 
-const { prerender, entries, load } = createContentPage({
+const { load } = createContentPage({
 	getAll: getAllTutorials,
 	getBySlug: getTutorialBySlug
 });
 
-export { prerender, entries, load };
+export { load };
