@@ -112,6 +112,9 @@ const config = {
 	preprocess: [vitePreprocess(), mdsvex(mdsvexOptions)],
 	kit: {
 		adapter: adapter(),
+		prerender: {
+			handleMissingId: 'warn'
+		},
 		alias: {
 			$components: 'src/components',
 			$utils: 'src/lib/utils',
