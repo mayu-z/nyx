@@ -91,7 +91,7 @@ const siteConfig: Site = {
 		github: 'https://github.com/mayu-z',
 		linkedin: 'https://www.linkedin.com/in/mayu-esh/',
 		calcom: 'https://cal.com/mayuresh-singh/secret',
-		wakatime: 'https://wakatime.com/@jasonlovesdoggo',
+		wakatime: 'https://wakatime.com/@mayu_esh',
 		codepen: 'https://codepen.io/take-',
 		instagram: 'https://www.instagram.com/inyorskin/',
 		x: 'https://x.com/Mayday_lives',

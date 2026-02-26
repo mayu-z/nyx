@@ -60,6 +60,18 @@
 	function handleExpand() {
 		isFullscreen = !isFullscreen;
 	}
+
+	// Lock / unlock body scroll when terminal opens or closes
+	$effect(() => {
+		if (isOpen) {
+			document.body.style.overflow = 'hidden';
+		} else {
+			document.body.style.overflow = '';
+		}
+		return () => {
+			document.body.style.overflow = '';
+		};
+	});
 </script>
 
 {#if isOpen && isMounted}
@@ -77,10 +89,10 @@
 
 	{#if isFullscreen}
 		<!-- Fullscreen overlay background -->
-		<div class="fixed inset-0 bg-black/20 z-30 pointer-events-none"></div>
+		<div class="fixed inset-0 bg-black/20 z-30 pointer-events-auto" role="presentation" onwheel={(e) => e.preventDefault()} onscroll={(e) => e.preventDefault()}></div>
 	{:else}
 		<!-- Center overlay for windowed mode -->
-		<div class="fixed inset-0 bg-black/30 z-30 pointer-events-none"></div>
+		<div class="fixed inset-0 bg-black/30 z-30 pointer-events-auto" role="presentation" onwheel={(e) => e.preventDefault()} onscroll={(e) => e.preventDefault()}></div>
 	{/if}
 {/if}
 

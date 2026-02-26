@@ -138,14 +138,14 @@
 				A real-time global counter tracking every click from everyone visiting this site. Completely
 				pointless, yet oddly satisfying.
 			</p>
-			<p class="text-subtext1 text-[10px]">
+			<!-- <p class="text-subtext1 text-[10px]">
 				Powered by <a
 					href="https://v2.jasoncameron.dev/abacus/"
 					target="_blank"
 					rel="noopener"
 					class="text-accent hover:underline">Abacus</a
 				>
-			</p>
+			</p> -->
 		</div>
 	</div>
 

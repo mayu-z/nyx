@@ -54,7 +54,7 @@
 			<div class="md:col-span-1">
 				<img
 					src="/images/unnamed.jpg"
-					alt="Jason Cameron"
+					alt=" Mayuresh"
 					class="h-full w-full rounded-md object-cover shadow-lg transition-transform duration-300 hover:scale-[1.02]"
 				/>
 			</div>

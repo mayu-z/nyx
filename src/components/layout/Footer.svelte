@@ -108,7 +108,7 @@
 
 			<span class="text-surface0 hidden sm:inline">-</span>
 
-			<a
+			<!-- <a
 				href="https://abacus.jasoncameron.dev"
 				target="_blank"
 				rel="noopener noreferrer"
@@ -116,7 +116,7 @@
 				title="View Site Analytics"
 			>
 				{value} views
-			</a>
+			</a> -->
 
 			<span class="text-surface0 hidden sm:inline">-</span>
 
