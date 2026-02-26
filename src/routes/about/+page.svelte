@@ -83,10 +83,7 @@
 						href="/photos"
 						class="link"
 						target="_blank">photography</a
-					>, organizing/participating at/mentoring hackathons and spending time with my dog, Bella (<a
-						href="#bella"
-						class="link">see below</a
-					>). I also have a passion for exploring the world in general! Feel free to
+					>, organizing/participating at/mentoring hackathons and spending time with my dog, Bella. I also have a passion for exploring the world in general! Feel free to
 					<a href={Site.out.calcom} target="_blank" rel="noopener noreferrer" class="link"
 						>book a chat</a
 					> if you'd like to connect.
