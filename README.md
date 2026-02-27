@@ -1,25 +1,51 @@
-# Nyx
+# nyx
+
+my personal portfolio site, live at [mayuu.me](https://www.mayuu.me/).
+
+built on top of [JasonLovesDoggo/nyx](https://github.com/JasonLovesDoggo/nyx) with my own tweaks and customizations.
 
 ---
 
-## License
+## tech stack
+
+- [SvelteKit](https://kit.svelte.dev/) — framework
+- [TypeScript](https://www.typescriptlang.org/) — language
+- [mdsvex](https://mdsvex.pngwn.io/) — markdown in Svelte
+- [Vite](https://vitejs.dev/) — build tool
+- [Cloudflare Workers](https://workers.cloudflare.com/) — deployment (via Wrangler)
+
+---
+
+## running locally
+
+```bash
+# install dependencies
+npm install
+
+# start dev server
+npm run dev
+```
+
+---
+
+## license & legal
 
 This project is licensed under the **GNU Affero General Public License v3.0 (AGPL-3.0)**.
 
-**Original Work:**
-
+**Original work:**
 - Copyright (C) 2025 [Jason Cameron](https://github.com/JasonLovesDoggo)
 - Original repository: [JasonLovesDoggo/nyx](https://github.com/JasonLovesDoggo/nyx)
 
-**Key License Requirements:**
+**Modifications:**
+- Copyright (C) 2025 mayu-z
+- This repository contains changes made to the original work.
 
-- This is free software: you can redistribute it and/or modify it under the terms of the AGPL-3.0
-- If you run a modified version of this software on a server, you **must** make the source code available to users
-- Any modifications must also be licensed under AGPL-3.0
-- You must retain all copyright notices and license information
+**What this means:**
+- This is free software — you can use, modify, and redistribute it under the AGPL-3.0
+- If you run a modified version on a public server, you **must** make your source code available to users
+- Any derivative work must also be licensed under AGPL-3.0
+- All copyright notices must be preserved
 
-See the [LICENSE](LICENSE) file for the full license text, or visit <https://www.gnu.org/licenses/agpl-3.0.html>.
+The footer of the site links to both the license and this source repository, as required by the AGPL-3.0.
 
----
-
-Thank you for visiting — and please leave a ⭐ if you likey!
+See the [LICENSE](./LICENSE) file for the full license text, or visit [gnu.org/licenses/agpl-3.0.html](https://www.gnu.org/licenses/agpl-3.0.html).
