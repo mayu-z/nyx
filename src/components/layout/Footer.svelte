@@ -83,6 +83,7 @@
   href="https://github.com/mayu-z/nyx"
   target="_blank"
   rel="noopener noreferrer"
+  class="text-accent hover:text-accent/80 transition-colors duration-200"
 >
   Source
 </a></span>
