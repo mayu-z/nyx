@@ -1,0 +1,22 @@
+~~~
+title = "Zeus"
+description = "Autonomous CI/CD healing agent - detects failing tests, generates fixes, and commits them automatically. Built with FastAPI, React, Redis, and PostgreSQL. Built at RIFT 2026."
+date = "2026-03-01"
+published = true
+featured = true
+tags = ["FastAPI", "React", "Redis", "PostgreSQL", "CI/CD", "hackathon"]
+
+[image]
+url = "/projects/zeus-card.webp"
+alt = "Zeus project card"
+
+[[links]]
+text = "GitHub"
+url = "https://github.com/mayu-z/zeus"
+~~~
+
+# Zeus
+
+Autonomous CI/CD healing agent that detects failing tests, generates fixes,
+and commits them automatically. Built with FastAPI, React, Redis, and
+PostgreSQL at RIFT 2026.

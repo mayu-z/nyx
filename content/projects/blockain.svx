@@ -1,9 +1,9 @@
 ~~~
 title = "blockchain"
-description = "An exploration into blockchain technology or a block-based application, implemented using JavaScript."
+description = "A from-scratch implementation of a basic blockchain in JavaScript - blocks, hashing, chain validation, and proof-of-work. A learning project to understand how distributed ledgers work under the hood."
 date = "2025-11-23"
 published = true
-tags = ["JavaScript", "blockchain", "web"]
+tags = ["JavaScript", "blockchain", "proof-of-work", "data-structures"]
 
 [image]
 url = "/projects/blockchain-card.webp"
@@ -16,13 +16,6 @@ url = "https://github.com/mayu-z/blockchain"
 
 # blockchain
 
-`blockchain` is a project that appears to delve into the world of blocks—whether that refers to blockchain technology, a block-based game, or a modular UI system.
-
-## Overview
-
-Built with JavaScript, this project likely involves:
-
-*   **Data Structures**: Managing chains or grids of data.
-*   **Algorithms**: Implementing logic for block interaction or verification.
-
-It represents an effort to build something robust and structured using standard web technologies.
+A from-scratch implementation of a basic blockchain in JavaScript - blocks,
+hashing, chain validation, and proof-of-work. A learning project to understand
+how distributed ledgers work under the hood.

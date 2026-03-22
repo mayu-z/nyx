@@ -5,13 +5,18 @@
 	import ThemeSelector from '$components/themes/ThemeSelector.svelte';
 	import ColorSelector from '$components/themes/ColorSelector.svelte';
 
-	let { isOpen, closeSidebar } = $props<{ 
-		isOpen: boolean; 
+	let { isOpen, closeSidebar } = $props<{
+		isOpen: boolean;
 		closeSidebar: () => void;
 	}>();
 
 	let currentPath = $derived(page.url.pathname);
-	
+
+	function isItemActive(href?: string, external?: boolean): boolean {
+		if (!href || external) return false;
+		return currentPath === href || currentPath.startsWith(`${href}/`);
+	}
+
 	function handleItemClick() {
 		closeSidebar();
 	}
@@ -34,7 +39,7 @@
 	}`}
 	id="sidebar-nav"
 >
-	<div class="border-surface0 flex h-16 flex-shrink-0 items-center justify-between border-b p-4">
+	<div class="border-surface0 flex h-16 shrink-0 items-center justify-between border-b p-4">
 		<span class="text-accent font-mono text-lg font-semibold">Navigation</span>
 		<button
 			onclick={closeSidebar}
@@ -45,7 +50,7 @@
 		</button>
 	</div>
 
-	<div class="border-surface0 flex-shrink-0 border-b p-4">
+	<div class="border-surface0 shrink-0 border-b p-4">
 		<div class="pb-1">
 			<ThemeSelector />
 		</div>
@@ -55,18 +60,26 @@
 	<nav class="flex-1 overflow-y-auto p-4">
 		<ul class="space-y-2" role="list">
 			{#each mainNavItems as item (item.title)}
-				{@const isActive = item.href && !item.external && currentPath === item.href}
+				{@const isActive = isItemActive(item.href, item.external)}
 				<li>
-						<a
-							href={item.href}
-							target={item.external ? '_blank' : undefined}
-							rel={item.external ? 'noopener noreferrer' : undefined}
-							class="hover:bg-surface0 focus:bg-surface1 block rounded p-2 transition-colors duration-150 focus:outline-none"
-							aria-current={isActive ? 'page' : undefined}
-							onclick={handleItemClick}
-						>
+					<a
+						href={item.href}
+						target={item.external ? '_blank' : undefined}
+						rel={item.external ? 'noopener noreferrer' : undefined}
+						class={`focus:bg-surface1 block rounded p-2 transition-colors duration-150 focus:outline-none ${
+							isActive ? 'text-text bg-surface0' : 'text-text hover:bg-surface0'
+						}`}
+						aria-current={isActive ? 'page' : undefined}
+						onclick={handleItemClick}
+					>
+						<span class="inline-flex items-center gap-2">
+							<span
+								class={`h-1.5 w-1.5 rounded-full transition-opacity ${isActive ? 'bg-accent opacity-100' : 'opacity-0'}`}
+								aria-hidden="true"
+							></span>
 							{item.title}
-						</a>
+						</span>
+					</a>
 				</li>
 			{/each}
 
@@ -75,17 +88,25 @@
 			<li class="text-subtext0 px-2 py-1 text-xs font-semibold tracking-wider uppercase">More</li>
 
 			{#each moreNavItems as item (item.title)}
-				{@const isActive = item.href && !item.external && currentPath === item.href}
+				{@const isActive = isItemActive(item.href, item.external)}
 				<li>
 					<a
 						href={item.href}
 						target={item.external ? '_blank' : undefined}
 						rel={item.external ? 'noopener noreferrer' : undefined}
-						class="hover:bg-surface0 focus:bg-surface1 block rounded p-2 transition-colors duration-150 focus:outline-none"
+						class={`focus:bg-surface1 block rounded p-2 transition-colors duration-150 focus:outline-none ${
+							isActive ? 'text-text bg-surface0' : 'text-text hover:bg-surface0'
+						}`}
 						aria-current={isActive ? 'page' : undefined}
 						onclick={closeSidebar}
 					>
-						{item.title}
+						<span class="inline-flex items-center gap-2">
+							<span
+								class={`h-1.5 w-1.5 rounded-full transition-opacity ${isActive ? 'bg-accent opacity-100' : 'opacity-0'}`}
+								aria-hidden="true"
+							></span>
+							{item.title}
+						</span>
 					</a>
 				</li>
 			{/each}

@@ -1,24 +1,13 @@
 <script lang="ts">
 	import LinkWithIcon from '$components/LinkWithIcon.svelte';
 	import Featured, { type FeaturedProject } from '$components/layout/Featured.svelte';
-	import {
-		IconArrowRight,
-		IconExternalLink,
-		IconArticle,
-		IconCode,
-		IconCalendarEvent,
-		IconActivity
-	} from '@tabler/icons-svelte';
+	import { IconArrowRight, IconExternalLink, IconActivity } from '@tabler/icons-svelte';
 	import Site from '$lib/config/common';
 	import { Home } from '$lib/config/pages';
-	import ThemeSelector from '$components/themes/ThemeSelector.svelte';
-	import ColorSelector from '$components/themes/ColorSelector.svelte';
 	import Experience from '$components/Experience.svelte';
 	import LocationMap from '$components/bento/LocationMap.svelte';
 	import TimeWaster from '$components/bento/TimeWaster.svelte';
-	import { formatDate } from '$utils/date';
 	import type { CommitData } from '$lib/api/commits';
-	import { onMount } from 'svelte';
 
 	type PageData = {
 		featuredProjects: FeaturedProject[];
@@ -30,69 +19,44 @@
 	};
 
 	let { data }: { data: PageData } = $props();
-	let isNameHovered = $state(false);
 	const langTotal = $derived((data.commitData?.languages || []).reduce((a, l) => a + l.size, 0));
+	const topLanguages = $derived((data.commitData?.languages || []).slice(0, 6));
 </script>
 
 <div class="mx-auto max-w-6xl space-y-12 px-0 py-8 md:space-y-16 md:px-4 md:py-12">
 	<!-- Section 1: Hero / Introduction -->
 	<section class="space-y-5 px-4 md:px-0">
-		<h1 class="text-3xl font-bold md:text-4xl">
-			Hey! I'm
-			<span class="text-accent">
-				<span class="sr-only select-none">Mayu</span>
-				<span aria-hidden="true">
-					<span>M</span><span
-						class="decoration-accent/30 underline decoration-dashed opacity-70"
-						onmouseenter={() => (isNameHovered = true)}
-						onmouseleave={() => (isNameHovered = false)}
-						onfocus={() => (isNameHovered = true)}
-						onblur={() => (isNameHovered = false)}
-						tabindex="0"
-						role="button"
-						aria-label="Hover or focus to see a fun fact about my name">a</span
-					><span>yu</span><span
-						aria-hidden="true"
-						class={`pointer-events-none inline-flex overflow-hidden align-baseline whitespace-nowrap transition-all duration-500 ease-out select-none ${
-							isNameHovered ? 'max-w-[7ch] opacity-100' : 'max-w-0 opacity-0'
-						}`}>&nbsp;'resh'</span
-					>
-				</span>
-				<span>Singh</span>
-			</span>
-		</h1>
-		<!--note to self: Could be improved via Senior SWE (Fullstack, AI, Systems) @ Stan.. -->
-		<p class="text-subtext0 max-w-prose text-lg leading-relaxed">
-			I'm currently a Student and a Software Developer  at @<a
-				class="link text-accent/85"
-				target="_blank"
-				rel="noopener"
-				href="https://stan.store">Aexiz</a>. I'm a Computer Science student and software developer focused on building reliable backend systems,
-			I enjoy working close to the fundamentals—data structures, APIs, databases, and system design—while writing clean, maintainable code.
-			<!-- <a
-				class="link text-accent/85"
-				target="_blank"
-				rel="noopener"
-				href="https://wiki.archlinux.org">Arch Linux</a
-			>,
-			<a class="link text-accent/85" target="_blank" rel="noopener" href="https://gitlab.gnome.org"
-				>GNOME</a
-			>,
-			<a
-				class="link text-accent/85"
-				target="_blank"
-				rel="noopener"
-				href="https://gitlab.steamos.cloud">Valve</a
-			>,
-			<a class="link text-accent/85" target="_blank" rel="noopener" href="https://trac.ffmpeg.org"
-				>FFmpeg</a
-			>
-			and many others<a
-				href="/projects/anubis"
-				class="hover:text-accent ml-0.5 align-super text-xs font-semibold">[1]</a
-			> --><br><br>
-			Currently building projects and learning how production-grade systems are designed and maintained. And building a fact checking platform which uses modern LLMs to verify the authenticity of the content.
+		<h1 class="text-3xl font-bold md:text-4xl">Hey, I'm Mayuresh.</h1>
+		<p class="text-text text-base font-medium md:text-lg">
+			Backend & DevOps engineer. CS student building real systems.
 		</p>
+		<p class="text-subtext0 max-w-prose text-lg leading-relaxed">
+			I work at the intersection of backend engineering and infrastructure - building reliable
+			systems with Go, containerizing them with Docker, and shipping them through CI/CD pipelines.
+			Currently a BCA student in Bangalore, co-founder of C3 (a cloud computing community), and
+			DevOps engineer at Aexiz Solutions.
+			<br /><br />
+			Right now I'm deep into RAG systems and agentic AI workflows - and building things that actually
+			work in production, not just on localhost.
+		</p>
+
+		<div class="flex flex-wrap items-center gap-3 pt-1">
+			<a
+				href="/projects"
+				class="bg-accent hover:bg-accent/90 focus:ring-accent/60 inline-flex items-center gap-2 rounded-lg px-4 py-2 text-base text-sm font-semibold transition-colors focus:ring-2 focus:outline-none"
+			>
+				<span>View Projects</span>
+				<IconArrowRight size={16} />
+			</a>
+			<a
+				href="https://cal.com/mayuresh-singh/secret"
+				target="_blank"
+				rel="noopener noreferrer"
+				class="border-surface1 text-subtext0 hover:border-accent hover:text-accent inline-flex items-center gap-2 rounded-lg border px-4 py-2 text-sm font-semibold transition-colors"
+			>
+				<span>Let's talk</span>
+			</a>
+		</div>
 		<div class="flex flex-wrap items-center gap-x-4 gap-y-2 pt-2">
 			{#each Home.socialLinks as link (link.href)}
 				<LinkWithIcon
@@ -129,189 +93,113 @@
 	<!-- Section: Bento Grid Container -->
 	<section class="px-4 md:px-0">
 		<h2 class="sr-only">Dashboard / Highlights</h2>
-		<div class="grid grid-cols-1 justify-center gap-5 sm:grid-cols-2 md:gap-6 lg:grid-cols-4">
-			<!-- Box 1: Theme Selector -->
-			<div
-				class="border-surface0 bg-base rounded-xl border p-4 shadow-lg sm:col-span-2 xl:col-span-1"
-			>
-				<ThemeSelector />
-				<ColorSelector />
-			</div>
-
-			<!-- Box 2: Book a chat -->
-			<div class="border-surface0 bg-base rounded-xl border p-4 shadow-lg lg:col-span-1">
-				<h3 class="text-text mb-3 flex items-center gap-2 text-sm font-semibold">
-					<IconCalendarEvent size={16} class="text-accent" />
-					Let's Connect
-				</h3>
-				<p class="text-subtext0 mb-4 text-sm">
-					Always open to interesting projects and conversations.
-				</p>
-				<a
-					href={Site.out.calcom}
-					target="_blank"
-					rel="noopener noreferrer"
-					class="bg-surface0 text-text hover:bg-accent/80 focus:ring-accent/50 focus:ring-offset-base inline-flex w-full items-center justify-center gap-2 rounded-md px-3 py-1.5 text-sm font-medium shadow-sm transition-colors hover:text-base focus:ring-2 focus:ring-offset-2 focus:outline-none"
-				>
-					<IconCalendarEvent size={16} />
-					Book a Chat
-				</a>
-			</div>
-
-			<!-- Box 3: Location Map -->
-			<LocationMap />
-
-			<!-- Box 4: Time Waster -->
-			<TimeWaster />
-
-			<!-- Box 5: Latest Commits -->
-			<div class="border-surface0 bg-base rounded-xl border p-4 shadow-lg md:col-span-2">
-				<div class="text-text mb-3 flex items-center justify-between gap-2 text-sm">
-					<h3 class="flex items-center gap-2 font-semibold">
-						<IconActivity size={16} class="text-accent" />
-						<span>Recent Commits</span>
-					</h3>
-					<a
-						href="https://katib.jsn.cam"
-						target="_blank"
-						rel="noopener noreferrer"
-						aria-label="See how this is calculated Katib"
-						class="text-accent/80 hover:text-accent text-xs font-medium transition-colors"
-					>
-						[info]
-					</a>
-				</div>
-				{#if data.commitData?.commits?.length > 0}
-					<ul class="space-y-1.5 text-sm">
-						{#each data.commitData.commits.slice(0, 4) as commit (commit.sha)}
-							<li>
-								<a
-									href={commit.href}
-									target="_blank"
-									rel="noopener noreferrer"
-									class="text-subtext0 hover:text-accent flex min-w-0 items-center gap-2"
-									title={`${commit.repo}: ${commit.message}`}
-								>
-									<span class="text-text flex-shrink-0 font-medium"
-										>{commit.repo.split('/')[1]}:</span
-									>
-									<span class="min-w-0 flex-1 truncate">{commit.message}</span>
-									{#if commit.additions !== undefined && commit.deletions !== undefined}
-										<span class="flex-shrink-0 text-xs whitespace-nowrap">
-											<span class="text-green">+{commit.additions}</span>
-											<span class="text-surface1">/</span>
-											<span class="text-red">-{commit.deletions}</span>
-										</span>
-									{/if}
-								</a>
-							</li>
-						{/each}
-					</ul>
-				{:else}
-					<p class="text-subtext1 text-sm italic">No recent public commits.</p>
-				{/if}
-				<div class="mt-3 flex items-center gap-3">
-					<a
-						href={Site.out.github}
-						target="_blank"
-						rel="noopener noreferrer"
-						class="group text-accent inline-flex items-center gap-1 text-sm hover:underline"
-					>
-						<span>View on GitHub</span>
-						<IconExternalLink
-							size={14}
-							class="inline-block transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-						/>
-					</a>
-					{#if langTotal > 0}
-						<div
-							class="ml-auto max-w-xs flex-1 sm:max-w-sm md:max-w-md"
-							aria-label="Language breakdown"
+		<div class="grid grid-cols-1 gap-5 md:gap-6 lg:grid-cols-2">
+			<div class="space-y-2">
+				<h3 class="text-text text-sm font-semibold">Recent Activity</h3>
+				<div class="border-surface0 bg-base rounded-xl border p-4 shadow-lg">
+					<div class="mb-3 flex items-center justify-between gap-2 text-sm">
+						<h4 class="text-text flex items-center gap-2 font-semibold">
+							<IconActivity size={16} class="text-accent" />
+							<span>Latest Commits</span>
+						</h4>
+						<a
+							href="https://katib.jsn.cam"
+							target="_blank"
+							rel="noopener noreferrer"
+							aria-label="See how this is calculated Katib"
+							class="text-accent/80 hover:text-accent text-xs font-medium transition-colors"
 						>
-							<div class="bg-surface2 h-2 w-full rounded-[3px]">
-								<div class="flex h-full w-full">
-									{#each data.commitData.languages as lang (lang.name)}
+							[info]
+						</a>
+					</div>
+					{#if data.commitData?.commits?.length > 0}
+						<ul class="space-y-1.5 text-sm">
+							{#each data.commitData.commits.slice(0, 4) as commit (commit.sha)}
+								<li>
+									<a
+										href={commit.href}
+										target="_blank"
+										rel="noopener noreferrer"
+										class="text-subtext0 hover:text-accent flex min-w-0 items-center gap-2"
+										title={`${commit.repo}: ${commit.message}`}
+									>
+										<span class="text-text shrink-0 font-medium">{commit.repo.split('/')[1]}:</span>
+										<span class="min-w-0 flex-1 truncate">{commit.message}</span>
+										{#if commit.additions !== undefined && commit.deletions !== undefined}
+											<span class="shrink-0 text-xs whitespace-nowrap">
+												<span class="text-green">+{commit.additions}</span>
+												<span class="text-surface1">/</span>
+												<span class="text-red">-{commit.deletions}</span>
+											</span>
+										{/if}
+									</a>
+								</li>
+							{/each}
+						</ul>
+					{:else}
+						<p class="text-subtext1 text-sm italic">No recent public commits.</p>
+					{/if}
+					<div class="mt-3">
+						<a
+							href={Site.out.github}
+							target="_blank"
+							rel="noopener noreferrer"
+							class="group text-accent inline-flex items-center gap-1 text-sm hover:underline"
+						>
+							<span>View on GitHub</span>
+							<IconExternalLink
+								size={14}
+								class="inline-block transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+							/>
+						</a>
+					</div>
+				</div>
+			</div>
+
+			<div class="space-y-2">
+				<h3 class="text-text text-sm font-semibold">Languages</h3>
+				<div class="border-surface0 bg-base rounded-xl border p-4 shadow-lg">
+					{#if langTotal > 0}
+						<ul class="space-y-2.5" aria-label="Language breakdown">
+							{#each topLanguages as lang (lang.name)}
+								{@const percent = Math.round((lang.size / langTotal) * 100)}
+								<li>
+									<div class="mb-1 flex items-center justify-between gap-3 text-xs">
+										<span class="text-subtext0 inline-flex items-center gap-2">
+											<span
+												class="inline-block h-2.5 w-2.5 rounded-full"
+												style={`background-color: ${lang.color};`}
+											></span>
+											{lang.name}
+										</span>
+										<span class="text-overlay1">{percent}%</span>
+									</div>
+									<div class="bg-surface2 h-2 w-full rounded-md">
 										<div
-											class="group relative h-full first:rounded-l-[3px] last:rounded-r-[3px]"
-											style={`width: clamp(8px, ${(lang.size / langTotal) * 100}%, ${(lang.size / langTotal) * 100}%); background-color: ${lang.color};`}
-										>
-											<!-- Tooltip -->
-											<div
-												class="border-surface1 bg-surface1 pointer-events-none absolute -top-7 left-1/2 z-10 -translate-x-1/2 rounded border px-2 py-0.5 text-xs whitespace-nowrap opacity-0 shadow-lg transition-opacity duration-150 group-hover:opacity-100"
-											>
-												<span class="inline-flex items-center gap-2">
-													<span
-														class="inline-block h-2 w-2 rounded"
-														style={`background-color: ${lang.color};`}
-													></span>
-													<span class="text-subtext0">{lang.name}</span>
-													<span class="text-surface1">•</span>
-													<span class="text-subtext1"
-														>{Math.round((lang.size / langTotal) * 100)}%</span
-													>
-												</span>
-											</div>
-										</div>
-									{/each}
-								</div>
-							</div>
-						</div>
+											class="h-full rounded-md"
+											style={`width: ${percent}%; background-color: ${lang.color};`}
+										></div>
+									</div>
+								</li>
+							{/each}
+						</ul>
+					{:else}
+						<p class="text-subtext1 text-sm italic">
+							Language stats will show after recent commits load.
+						</p>
 					{/if}
 				</div>
 			</div>
-			<!-- Box 6: Latest Posts -->
-			<!-- <div
-				class="border-surface0 bg-base rounded-xl border p-4 shadow-lg sm:col-span-2 lg:col-span-2"
-			>
-				<div class="text-text mb-3 flex items-center justify-between gap-2 text-sm">
-					<h3 class="flex items-center gap-2 font-semibold">
-						<IconArticle size={14} class="text-accent" />
-						<span>Latest Posts</span>
-					</h3>
-					<a
-						href="/posts"
-						aria-label="View all posts"
-						class=" text-accent/80 transition-transform duration-500 ease-in hover:translate-x-0.5 hover:-translate-y-0.5"
-					>
-						<IconExternalLink size={18} />
-					</a>
-				</div>
 
-				{#if data.latestPosts.length > 0}
-					<ul class="list-none space-y-2">
-						{#each data.latestPosts as post (post.slug)}
-							{@const words = post.metadata.title.text.split(' ')}
-							{@const safePath = post.slug.split('/').pop() || post.slug}
-							<li>
-								<a
-									href={'/posts/' + post.slug}
-									class="text-subtext0 hover:text-accent flex min-w-0 items-center gap-2 text-sm"
-								>
-									<span class="min-w-0 flex-1 truncate">
-										{#each words as word, i}
-											{@const normalized = word.toLowerCase().replace(/[^a-z0-9\s-_]/g, '')}
-											{@const vtName = `_${safePath}__${normalized}`}
-											<span style="view-transition-name: {vtName};">
-												{word}{i < words.length - 1 ? ' ' : ''}
-											</span>
-										{/each}
-									</span>
+			<div class="space-y-2">
+				<h3 class="text-text text-sm font-semibold">Location</h3>
+				<LocationMap />
+			</div>
 
-									{#if post.metadata.published_at}
-										<span class="text-surface1 mx-2 flex-shrink-0 text-xs">–</span>
-										<span class="text-subtext1 flex-shrink-0 text-xs whitespace-nowrap">
-											{formatDate(post.metadata.published_at, { shortMonth: true })}
-										</span>
-									{/if}
-								</a>
-							</li>
-						{/each}
-					</ul>
-				{:else}
-					<p class="text-subtext1 text-xs italic">No posts yet.</p>
-				{/if}
-			</div> -->
+			<div class="space-y-2">
+				<h3 class="text-text text-sm font-semibold">Click Counter</h3>
+				<TimeWaster />
+			</div>
 		</div>
 	</section>
 </div>
-

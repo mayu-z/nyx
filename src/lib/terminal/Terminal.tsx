@@ -175,7 +175,7 @@ const Terminal: React.FC<TerminalProps> = ({ theme, onThemeToggle, onHeartRainTo
 						type: 'project' as const,
 						content: p.description,
 						title: p.title,
-						tech: p.tech
+						tech: [...p.tech]
 					}))
 				]);
 				break;

@@ -18,7 +18,7 @@
 
 	let isSidebarOpen = $state(false);
 	let isTerminalOpen = $state(false);
-	
+
 	function toggleSidebar() {
 		isSidebarOpen = !isSidebarOpen;
 	}

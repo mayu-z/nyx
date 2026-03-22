@@ -75,24 +75,32 @@
 </script>
 
 {#if isOpen && isMounted}
-	<div class="fixed inset-0 z-40 flex items-center justify-center pointer-events-none">
+	<div class="pointer-events-none fixed inset-0 z-40 flex items-center justify-center">
 		<div
 			class={`pointer-events-auto ${
-				isFullscreen
-					? 'w-full h-full'
-					: 'w-full max-w-4xl h-[600px] rounded-lg shadow-2xl'
+				isFullscreen ? 'h-full w-full' : 'h-[600px] w-full max-w-4xl rounded-lg shadow-2xl'
 			} transition-all duration-300`}
 		>
-			<div bind:this={terminalContainer} id="terminal-root" class="w-full h-full"></div>
+			<div bind:this={terminalContainer} id="terminal-root" class="h-full w-full"></div>
 		</div>
 	</div>
 
 	{#if isFullscreen}
 		<!-- Fullscreen overlay background -->
-		<div class="fixed inset-0 bg-black/20 z-30 pointer-events-auto" role="presentation" onwheel={(e) => e.preventDefault()} onscroll={(e) => e.preventDefault()}></div>
+		<div
+			class="pointer-events-auto fixed inset-0 z-30 bg-black/20"
+			role="presentation"
+			onwheel={(e) => e.preventDefault()}
+			onscroll={(e) => e.preventDefault()}
+		></div>
 	{:else}
 		<!-- Center overlay for windowed mode -->
-		<div class="fixed inset-0 bg-black/30 z-30 pointer-events-auto" role="presentation" onwheel={(e) => e.preventDefault()} onscroll={(e) => e.preventDefault()}></div>
+		<div
+			class="pointer-events-auto fixed inset-0 z-30 bg-black/30"
+			role="presentation"
+			onwheel={(e) => e.preventDefault()}
+			onscroll={(e) => e.preventDefault()}
+		></div>
 	{/if}
 {/if}
 
@@ -102,4 +110,3 @@
 		height: 100%;
 	}
 </style>
-

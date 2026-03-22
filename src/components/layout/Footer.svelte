@@ -8,7 +8,7 @@
 	const { value } = $props();
 
 	const year = new Date().getFullYear();
-	const shortSha = PUBLIC_COMMIT_SHA ? PUBLIC_COMMIT_SHA.substring(0, 7) : 'dev';
+	const shortSha = PUBLIC_COMMIT_SHA ? PUBLIC_COMMIT_SHA.substring(0, 7) : '';
 	const commitLinkUrl = PUBLIC_COMMIT_SHA ? `${Site.repo.commitBaseUrl}${PUBLIC_COMMIT_SHA}` : '#';
 
 	let currentTime = $state('');
@@ -79,14 +79,16 @@
 		class="bg-crust text-subtext0 border-surface0/20 flex h-auto flex-col items-center justify-center gap-y-3 rounded-lg border p-5 text-sm md:flex-row md:justify-between md:gap-y-0"
 	>
 		<div class="flex flex-wrap items-center justify-center gap-x-3 gap-y-2 md:justify-start">
-			<span class="whitespace-nowrap">AGPL v3 • <a
-  href="https://github.com/mayu-z/nyx"
-  target="_blank"
-  rel="noopener noreferrer"
-  class="text-accent hover:text-accent/80 transition-colors duration-200"
->
-  Source
-</a></span>
+			<span class="whitespace-nowrap"
+				>AGPL v3 • <a
+					href="https://github.com/mayu-z/nyx"
+					target="_blank"
+					rel="noopener noreferrer"
+					class="text-accent hover:text-accent/80 transition-colors duration-200"
+				>
+					Source
+				</a></span
+			>
 
 			<span class="text-surface0 hidden md:inline">-</span>
 
@@ -129,13 +131,13 @@
 					class="text-subtext1 hover:text-accent flex items-center gap-x-1 transition-colors duration-200"
 					title="View deployment commit ({PUBLIC_COMMIT_SHA})"
 				>
-					<IconGitCommit size={18} stroke={1.5} class="flex-shrink-0" />
+					<IconGitCommit size={18} stroke={1.5} class="shrink-0" />
 					<span>{shortSha}</span>
 				</a>
 			{:else}
-				<span class="text-overlay1 flex items-center gap-x-1" title="Development Build">
-					<IconGitCommit size={18} stroke={1.5} class="flex-shrink-0" />
-					<span>{shortSha}</span>
+				<span class="text-overlay1 flex items-center gap-x-1" title="Local Build">
+					<IconGitCommit size={18} stroke={1.5} class="shrink-0" />
+					<span>local build</span>
 				</span>
 			{/if}
 

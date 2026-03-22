@@ -45,7 +45,7 @@
 						>
 							{project.metadata.title}
 						</h2>
-						<p class="text-overlay1 flex-shrink-0 text-xs whitespace-nowrap">
+						<p class="text-overlay1 shrink-0 text-xs whitespace-nowrap">
 							{formatDate(project.metadata.date)}
 						</p>
 					</div>

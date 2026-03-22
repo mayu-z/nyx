@@ -31,11 +31,11 @@
 			const response = await fetch('/api/counter');
 			if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
 			const data = await response.json();
-			
+
 			if (data.count !== undefined) {
 				const oldCount = globalCount;
 				globalCount = data.count;
-				
+
 				// Trigger animation if count increased from another user
 				if (globalCount > oldCount && oldCount > 0) {
 					triggerStreamAnimation();
@@ -55,7 +55,7 @@
 			});
 			if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
 			const data = await response.json();
-			
+
 			if (data.count !== undefined) {
 				globalCount = data.count;
 			}
@@ -130,7 +130,7 @@
 		</button>
 
 		<div
-			class="bg-base/70 border-accent/20 text-subtext0 absolute top-6 right-0 z-10 w-[14rem] rounded-lg border p-3 text-xs shadow-xl backdrop-blur-md transition-all duration-200 {showInfo
+			class="bg-base/70 border-accent/20 text-subtext0 absolute top-6 right-0 z-10 w-56 rounded-lg border p-3 text-xs shadow-xl backdrop-blur-md transition-all duration-200 {showInfo
 				? 'visible opacity-100'
 				: 'invisible opacity-0'} group-hover:visible group-hover:opacity-100"
 		>

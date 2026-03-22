@@ -11,9 +11,9 @@ const redirects = createRedirects([
 	// { paths: '/bluesky', url: Site.out.bluesky },
 	{ paths: ['/insta', '/ig'], url: Site.out.instagram },
 	{ paths: ['/cal', '/chat'], url: Site.out.calcom },
-	{ paths: '/repo', url: Site.repo.url },
+	{ paths: '/repo', url: Site.repo.url }
 	// { paths: '/abacus', url: 'https://v2.jasoncameron.dev/abacus' },
-	{ paths: '/resume', url: '/resume.pdf' }
+	// { paths: '/resume', url: '/resume.pdf' }  // Removed: /resume now has a dedicated page
 	// { paths: '/foodle', url: 'https://foodle.jasoncameron.dev' },
 	// { paths: '/random-color', url: 'https://pickacolor.jasoncameron.dev' }
 ]);

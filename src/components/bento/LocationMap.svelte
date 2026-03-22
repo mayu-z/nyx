@@ -80,7 +80,7 @@
 	</button>
 	<div class="bg-surface0 relative w-full flex-1 overflow-hidden rounded-lg">
 		{#if browser}
-			<div bind:this={mapContainer} class="bg-surface0 h-full w-full relative z-0"></div>
+			<div bind:this={mapContainer} class="bg-surface0 relative z-0 h-full w-full"></div>
 			{#if !leafletLoaded}
 				<div class="bg-surface0 absolute inset-0 flex items-center justify-center">
 					<span class="text-subtext1 text-xs">Loading map...</span>

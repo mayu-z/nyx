@@ -7,13 +7,13 @@ export interface TerminalLine {
 	linkUrl?: string; // For image type: optional link URL
 	linkText?: string; // For image type: optional link text
 	title?: string; // For project type: project title
-	tech?: string[]; // For project type: technologies
+	tech?: readonly string[]; // For project type: technologies
 }
 
 export interface Project {
 	title: string;
 	description: string;
-	tech: string[];
+	tech: readonly string[];
 	link?: string;
 }
 
