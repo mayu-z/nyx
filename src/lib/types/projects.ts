@@ -1,3 +1,5 @@
+import type { Component } from 'svelte';
+
 export interface ProjectLink {
 	text: string;
 	url: string;
@@ -30,5 +32,5 @@ export interface ProjectEntry {
 }
 
 export interface ProjectPageData extends ProjectEntry {
-	content: ConstructorOfATypedSvelteComponent;
+	content: Component<any>;
 }

@@ -3,6 +3,7 @@
  * All Rights Reserved
  */
 import { error } from '@sveltejs/kit';
+import type { Component } from 'svelte';
 
 export interface ContentEntry<T> {
 	slug: string;
@@ -10,7 +11,7 @@ export interface ContentEntry<T> {
 }
 
 export interface ContentPageData<T> extends ContentEntry<T> {
-	content: ConstructorOfATypedSvelteComponent;
+	content: Component<any>;
 }
 
 interface CreateContentServiceOptions<T> {
@@ -21,7 +22,7 @@ interface CreateContentServiceOptions<T> {
 }
 
 interface MdsvexModule<T> {
-	default: ConstructorOfATypedSvelteComponent;
+	default: Component<any>;
 	metadata?: T;
 	frontmatter?: T;
 }
