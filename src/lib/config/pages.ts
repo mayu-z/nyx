@@ -43,13 +43,13 @@ export const experienceTimeline: ExperienceTimelineItem[] = [
 	},
 	{
 		company: 'Aexiz',
-		role: 'CTO',
+		role: 'DevOps Engineer',
 		url: 'https://www.aexiz.com/',
 		logoUrl: '/logos/aexiz.svg',
 		logoAlt: 'Aexiz Logo',
 		startDate: '2024-09-01',
 		details:
-			'As CTO, I led the development of Aexiz, an innovative startup revolutionizing eco-friendly Shopify fulfillment with edge based sustainable warehousing technology and seamless logistics integrations.'
+			'Working across multiple Aexiz Solutions projects as a DevOps engineer, focused on CI/CD pipelines, health checks, infrastructure as code, version control, and orchestration.'
 	},
 	{
 		company: 'Deep Hackathon',
@@ -57,10 +57,22 @@ export const experienceTimeline: ExperienceTimelineItem[] = [
 		url: 'https://hackcanada.org/',
 		logoUrl: '/logos/hero.svg',
 		logoAlt: 'Deep Logo',
-		startDate: '2024-09-01',
-		endDate: '2025-05-01',
+		startDate: '2025-01-01',
+		endDate: '2025-01-02',
 		details:
-			"Co-launched Deep, Hackathons Canada's premier national hackathon series. Organized the inaugural event (February 21–23, 2025), secured partnerships with Google, WarpDev, and Microsoft and more, oversaw all development, workshops, and mentorship sessions for 400+ participants.",
+			'Participated in a 24-hour Deep Hackathon in 2025 and built Aletheia, which is listed in the projects section.',
+		logoScale: 0.85
+	},
+	{
+		company: 'Rift Hackathon',
+		role: 'Participant',
+		url: 'https://github.com/mayu-z/zeus',
+		logoUrl: '/logos/rift.png',
+		logoAlt: 'Rift Logo',
+		startDate: '2026-01-01',
+		endDate: '2026-01-02',
+		details:
+			'Participated in Rift Hackathon (2026) and built Zeus: a CI/CD pipeline health-check and improvement system that runs tests and reports pipeline reliability.',
 		logoScale: 0.85
 	}
 ];
