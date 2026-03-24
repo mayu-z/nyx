@@ -43,8 +43,8 @@
 				</p>
 
 				<p class="text-subtext0 text-base leading-relaxed">
-					Outside of work, I play Ultimate Frisbee, shoot photos, and spend too much time
-					configuring Neovim. Always open to interesting problems - feel free to book a chat.
+					Outside of work, I Competative chess, read books, and spend too much time configuring
+					Neovim. Always open to interesting problems - feel free to book a chat.
 				</p>
 
 				<div class="flex flex-wrap gap-3 pt-2">

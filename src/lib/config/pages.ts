@@ -13,7 +13,7 @@ export const Home = {
 			text: 'LinkedIn',
 			icon: IconBrandLinkedin
 		},
-		{ href: Site.out.x, text: '', icon: IconBrandX }
+		{ href: Site.out.x, text: 'Twitter', icon: IconBrandX }
 	]
 };
 
