@@ -33,7 +33,7 @@ export const experienceTimeline: ExperienceTimelineItem[] = [
 	{
 		company: 'C3',
 		role: 'Co-Founder',
-		url: 'https://www.c3.aexiz.com/',
+		url: 'https://c3.aexiz.com',
 		logoUrl: '/logos/c3.svg',
 		logoAlt: 'C3 Logo',
 		startDate: '2026-01-20',
