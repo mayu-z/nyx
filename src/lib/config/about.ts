@@ -9,7 +9,7 @@ export type AchievementItem =
 
 export const achievements: AchievementItem[] = [
 	// Professional Achievements
-	'Deep Co-Founder',
+
 	'Aexiz ',
 	'Lab Assistant @ York University',
 	{ title: 'Medici Grant Recipient', href: 'https://www.1517fund.com/medici-project' },

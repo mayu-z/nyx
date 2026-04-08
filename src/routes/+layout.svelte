@@ -4,6 +4,7 @@
 	import Footer from '../components/layout/Footer.svelte';
 	import Sidebar from '../components/layout/Sidebar.svelte';
 	import TerminalWrapper from '../components/TerminalWrapper.svelte';
+	import ThemeFloat from '../components/themes/ThemeFloat.svelte';
 	import { page } from '$app/state';
 	import { onNavigate } from '$app/navigation';
 	import Site from '$lib/config/common';
@@ -76,13 +77,13 @@
 			'@context': 'https://schema.org',
 			'@type': ['Person', 'ProfilePage'],
 			name: Site.seo.author,
-			givenName: 'Jason',
-			familyName: 'Cameron',
-			alternateName: ['jsoncam', 'jasonlovesdoggo', 'json'],
+			givenName: 'Mayuresh',
+			familyName: 'Singh',
+			alternateName: ['mayu-z', 'mayu'],
 			url: Site.url,
 			description:
-				'Senior Software Engineer based in Toronto, Canada. Expert in Golang, Python, DevOps, and hackathon development.',
-			jobTitle: 'Senior Software Engineer',
+				'Backend and infrastructure engineer based in Bengaluru, India. Building reliable systems with Go, Docker, and CI/CD.',
+			jobTitle: 'Backend & Infrastructure Engineer',
 			birthDate: Site.seo.birthDate,
 			worksFor: {
 				'@type': 'Organization',
@@ -93,7 +94,7 @@
 				'@type': 'PostalAddress',
 				addressLocality: Site.seo.location.city,
 				addressRegion: Site.seo.location.region,
-				addressCountry: 'CA'
+				addressCountry: 'IN'
 			},
 			sameAs: [
 				Site.out.github,
@@ -131,4 +132,5 @@
 	<Footer value={data.footerData.value} />
 </div>
 
+<ThemeFloat />
 <TerminalWrapper bind:isOpen={isTerminalOpen} />

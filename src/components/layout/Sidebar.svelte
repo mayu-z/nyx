@@ -2,8 +2,6 @@
 	import { mainNavItems, moreNavItems } from '$lib/config/navItems';
 	import { IconX } from '@tabler/icons-svelte';
 	import { page } from '$app/state';
-	import ThemeSelector from '$components/themes/ThemeSelector.svelte';
-	import ColorSelector from '$components/themes/ColorSelector.svelte';
 
 	let { isOpen, closeSidebar } = $props<{
 		isOpen: boolean;
@@ -48,13 +46,6 @@
 		>
 			<IconX size={24} />
 		</button>
-	</div>
-
-	<div class="border-surface0 shrink-0 border-b p-4">
-		<div class="pb-1">
-			<ThemeSelector />
-		</div>
-		<ColorSelector />
 	</div>
 
 	<nav class="flex-1 overflow-y-auto p-4">

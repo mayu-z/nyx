@@ -20,6 +20,8 @@ export interface ProjectMetadata {
 	tags?: string[];
 	image?: ProjectImage;
 	links?: ProjectLink[];
+	githubUrl?: string;
+	demoUrl?: string;
 }
 
 export interface WithMetadata {

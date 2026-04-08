@@ -2,9 +2,14 @@
 	import { IconBrandGithub, IconBrandLinkedin, IconMail } from '@tabler/icons-svelte';
 	import Site from '$lib/config/common';
 
+	let copiedEmail = $state(false);
+
 	const handleEmailClick = () => {
-		const email = atob('Y29udGFjdEA=') + window.location.hostname;
-		window.location.href = `mailto:${email}`;
+		navigator.clipboard.writeText('mayuresh2k4@gmail.com');
+		copiedEmail = true;
+		setTimeout(() => {
+			copiedEmail = false;
+		}, 2000);
 	};
 </script>
 
@@ -23,23 +28,23 @@
 			<div class="md:col-span-1">
 				<img
 					src="/images/unnamed.jpg"
-					alt=" Mayuresh"
+					alt="Mayuresh Singh, backend and infrastructure engineer"
 					class="h-full w-full rounded-md object-cover shadow-lg transition-transform duration-300 hover:scale-[1.02]"
 				/>
 			</div>
 
 			<div class="space-y-4 md:col-span-2">
 				<p class="text-subtext0 text-base leading-relaxed">
-					Hey - I'm Mayuresh Singh, a backend and DevOps engineer based out of Bangalore, India. I'm
-					in my final year of BCA at IFIM College, and I care about building systems that are
-					reliable, maintainable, and fun to work on.
+					Hey - I'm Mayuresh Singh, a backend and infrastructure engineer based out of Bangalore,
+					India. I'm in my final year of BCA at IFIM College, and I care about building systems that
+					are reliable, maintainable, and fun to work on.
 				</p>
 
 				<p class="text-subtext0 text-base leading-relaxed">
-					On the professional side, I co-founded C3 - a vendor-neutral cloud computing community
-					spanning AWS, GCP, Azure, and Oracle - and I work as a DevOps engineer at Aexiz Solutions,
-					handling CI/CD pipelines, infrastructure, and scaling. I've also shipped hackathon
-					projects in multi-agent AI (Aletheia) and autonomous DevOps tooling (Zeus).
+					On the professional side, I am actively involved in C3 - a vendor-neutral cloud computing
+					community spanning AWS, GCP, Azure, and Oracle - and I lead engineering at Aexiz, handling
+					CI/CD pipelines, infrastructure, and scaling. I've also shipped hackathon projects in
+					multi-agent AI (Aletheia) and autonomous DevOps tooling (Zeus).
 				</p>
 
 				<p class="text-subtext0 text-base leading-relaxed">
@@ -71,21 +76,21 @@
 					</a>
 
 					<span class="text-surface1">*</span>
-					<span
-						role="button"
-						aria-label="Send an email to contact"
-						class="hover:text-accent inline-flex items-center gap-1.5 text-sm transition-colors"
-						tabindex="0"
+					<button
+						aria-label="Copy email address"
+						class="hover:text-accent relative inline-flex cursor-pointer items-center gap-1.5 text-sm transition-colors"
 						onclick={handleEmailClick}
-						onkeydown={(e) => {
-							if (e.key === 'Enter' || e.key === ' ') {
-								handleEmailClick();
-							}
-						}}
 					>
 						<IconMail size={16} />
-						mayuresh2k4@gmail.com
-					</span>
+						mayuresh2k4[at]gmail.com
+						{#if copiedEmail}
+							<span
+								class="bg-surface0 text-text absolute -top-8 left-1/2 -translate-x-1/2 rounded-md px-2 py-1 text-xs whitespace-nowrap shadow-md"
+							>
+								Copied!
+							</span>
+						{/if}
+					</button>
 				</div>
 			</div>
 		</div>

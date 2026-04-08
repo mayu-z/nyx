@@ -198,7 +198,7 @@ const Terminal: React.FC<TerminalProps> = ({ theme, onThemeToggle, onHeartRainTo
 					{ type: 'output', content: '' },
 					{ type: 'output', content: 'GitHub: github.com/mayu-z' },
 					{ type: 'output', content: 'LinkedIn: linkedin.com/in/mayu-esh' },
-					{ type: 'output', content: 'Email: mayuresh2k4@gmail.com' },
+					{ type: 'output', content: 'Email: mayuresh2k4[at]gmail.com' },
 					{ type: 'output', content: 'Location: India' }
 				]);
 				break;

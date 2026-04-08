@@ -1,6 +1,6 @@
 ~~~
 title = "sticky-note"
-description = "A minimal frontend-only sticky note app in vanilla JS, HTML, and CSS. No backend, no frameworks. Just localStorage and clean DOM manipulation."
+description = "A zero-backend sticky note app — localStorage-persisted notes with drag positioning and inline editing. Pure frontend, zero dependencies."
 date = "2024-09-16"
 published = true
 tags = ["JavaScript", "HTML", "CSS", "utility"]
@@ -16,5 +16,5 @@ url = "https://github.com/mayu-z/sticky-note"
 
 # sticky-note
 
-A minimal frontend-only sticky note app in vanilla JS, HTML, and CSS.
-No backend, no frameworks. Just localStorage and clean DOM manipulation.
+A zero-backend sticky note app — localStorage-persisted notes with drag
+positioning and inline editing. Pure frontend, zero dependencies.

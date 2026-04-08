@@ -1,13 +1,23 @@
 <script>
 	import { Socials } from '$lib/config/common';
 	import { IconExternalLink } from '@tabler/icons-svelte';
+
+	let copiedEmail = $state(false);
+
+	const handleEmailClick = () => {
+		navigator.clipboard.writeText('mayuresh2k4@gmail.com');
+		copiedEmail = true;
+		setTimeout(() => {
+			copiedEmail = false;
+		}, 2000);
+	};
 </script>
 
 <svelte:head>
-	<title>Connect with Jason Cameron | Social Links</title>
+	<title>Connect with Mayuresh Singh | Social Links</title>
 	<meta
 		name="description"
-		content="Connect with Jason Cameron on various social platforms - GitHub, LinkedIn, X, Bluesky, Instagram, and WakaTime."
+		content="Connect with Mayuresh Singh on various social platforms - GitHub, LinkedIn, X, Bluesky, Instagram, and WakaTime."
 	/>
 </svelte:head>
 
@@ -94,9 +104,20 @@
 	<div class="mt-12 text-center">
 		<p class="text-subtext1 text-sm">
 			Prefer email? Reach out at
-			<a href="mailto:hi@jasoncameron.dev" class="link text-accent font-medium hover:underline">
-				mayuresh2k4@gmail.com
-			</a>
+			<button
+				class="text-accent hover:text-accent/80 relative cursor-pointer font-medium transition-colors"
+				onclick={handleEmailClick}
+				aria-label="Copy email address"
+			>
+				mayuresh2k4[at]gmail.com
+				{#if copiedEmail}
+					<span
+						class="bg-surface0 text-text absolute -top-8 left-1/2 -translate-x-1/2 rounded-md px-2 py-1 text-xs font-normal whitespace-nowrap shadow-md"
+					>
+						Copied!
+					</span>
+				{/if}
+			</button>
 		</p>
 	</div>
 </div>

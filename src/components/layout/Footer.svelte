@@ -3,7 +3,13 @@
 	import { onMount } from 'svelte';
 	import { browser } from '$app/environment';
 	import Site, { Socials } from '$lib/config/common';
-	import { IconClock, IconGitCommit } from '@tabler/icons-svelte';
+	import {
+		IconClock,
+		IconBrandGithub,
+		IconBrandLinkedin,
+		IconMail,
+		IconCalendar
+	} from '@tabler/icons-svelte';
 
 	const { value } = $props();
 
@@ -44,17 +50,19 @@
 		>
 			<div class="text-subtext1 flex items-center gap-x-1 text-xs whitespace-nowrap md:text-sm">
 				<span class="text-overlay1">Webrings:</span>
-				<a
-					href="https://ctp-webr.ing/"
-					target="_blank"
-					rel="noopener noreferrer"
-					class="saturate-[0.5] transition-colors duration-200"
-					title="CTP Webring"
-				>
-					<span class="text-rosewater">c</span><span class="text-green">p</span><span
-						class="text-blue">t</span
+				<abbr title="Catppuccin webring" class="no-underline">
+					<a
+						href="https://ctp-webr.ing/"
+						target="_blank"
+						rel="noopener noreferrer"
+						class="saturate-[0.5] transition-colors duration-200"
+						title="CTP Webring"
 					>
-				</a>
+						<span class="text-rosewater">c</span><span class="text-green">p</span><span
+							class="text-blue">t</span
+						>
+					</a>
+				</abbr>
 				<span class="text-xs leading-none opacity-75">
 					<span class="opacity-40">&lbrace;</span><a
 						href="https://ctp-webr.ing/json/previous"
@@ -74,89 +82,103 @@
 		</div>
 	</div>
 
-	<!-- Main footer with smooth connection to the raised section -->
+	<!-- Main footer -->
 	<footer
-		class="bg-crust text-subtext0 border-surface0/20 flex h-auto flex-col items-center justify-center gap-y-3 rounded-lg border p-5 text-sm md:flex-row md:justify-between md:gap-y-0"
+		class="bg-crust text-subtext0 border-surface0/20 flex h-auto flex-col items-center gap-y-4 rounded-lg border p-5 text-sm"
 	>
-		<div class="flex flex-wrap items-center justify-center gap-x-3 gap-y-2 md:justify-start">
-			<span class="whitespace-nowrap"
-				>AGPL v3 • <a
-					href="https://github.com/mayu-z/nyx"
+		<!-- Row 1: Name & tagline -->
+		<div class="text-center">
+			<p class="text-text font-semibold">Mayuresh Singh</p>
+			<p class="text-subtext1 text-xs">Backend & Infrastructure Engineer</p>
+		</div>
+
+		<!-- Row 2: Social links -->
+		<div class="flex flex-wrap items-center justify-center gap-x-4 gap-y-2">
+			<a
+				href={Site.out.github}
+				target="_blank"
+				rel="noopener noreferrer"
+				class="text-subtext1 hover:text-accent inline-flex items-center gap-1.5 text-xs transition-colors duration-200"
+			>
+				<IconBrandGithub size={14} />
+				<span>GitHub</span>
+			</a>
+			<a
+				href={Site.out.linkedin}
+				target="_blank"
+				rel="noopener noreferrer"
+				class="text-subtext1 hover:text-accent inline-flex items-center gap-1.5 text-xs transition-colors duration-200"
+			>
+				<IconBrandLinkedin size={14} />
+				<span>LinkedIn</span>
+			</a>
+			<a
+				href="mailto:mayuresh2k4@gmail.com"
+				class="text-subtext1 hover:text-accent inline-flex items-center gap-1.5 text-xs transition-colors duration-200"
+			>
+				<IconMail size={14} />
+				<span>Email</span>
+			</a>
+			<a
+				href={Site.out.calcom}
+				target="_blank"
+				rel="noopener noreferrer"
+				class="text-subtext1 hover:text-accent inline-flex items-center gap-1.5 text-xs transition-colors duration-200"
+			>
+				<IconCalendar size={14} />
+				<span>Book a call</span>
+			</a>
+		</div>
+
+		<!-- Row 3: Built with / license / status -->
+		<div class="flex flex-wrap items-center justify-center gap-x-3 gap-y-2 text-xs">
+			<span class="text-overlay1">Built with SvelteKit</span>
+			<span class="text-surface0">·</span>
+			<span class="whitespace-nowrap">
+				AGPL v3 ·
+				<a
+					href={Site.repo.url}
 					target="_blank"
 					rel="noopener noreferrer"
 					class="text-accent hover:text-accent/80 transition-colors duration-200"
 				>
-					Source
-				</a></span
-			>
+					Source on GitHub
+				</a>
+			</span>
 
-			<span class="text-surface0 hidden md:inline">-</span>
+			<span class="text-surface0">·</span>
 
-			<div class="flex items-center gap-1 whitespace-nowrap" title="Service Status">
-				<span class="relative mr-1.5 flex h-3 w-3">
+			<div class="flex items-center gap-1.5 whitespace-nowrap" title="Service Status">
+				<span class="relative flex h-2.5 w-2.5">
 					<span
 						class="animate-duration-[2000ms] bg-green/75 absolute inline-flex h-full w-full animate-ping rounded-full"
 					></span>
-					<span class="bg-green relative inline-flex h-3 w-3 rounded-full"></span>
+					<span class="bg-green relative inline-flex h-2.5 w-2.5 rounded-full"></span>
 				</span>
-				<span class="text-subtext1 text-sm font-medium">All Services Nominal</span>
+				<span class="text-subtext1">All Services Nominal</span>
 			</div>
 		</div>
 
-		<div class="flex flex-wrap items-center justify-center gap-x-3 gap-y-2 md:justify-end">
+		<!-- Row 4: Time + commit (minimal) -->
+		<div class="flex items-center gap-3 text-xs">
 			<div class="flex items-center gap-1.5" title="Current Time (GMT+5:30)">
-				<IconClock size={14} class="text-subtext1" />
-				<span class="text-accent font-mono text-xs">{currentTime}</span>
+				<IconClock size={12} class="text-subtext1" />
+				<span class="text-accent font-mono">{currentTime}</span>
 			</div>
 
-			<span class="text-surface0 hidden sm:inline">-</span>
-
-			<!-- <a
-				href="https://abacus.jasoncameron.dev"
-				target="_blank"
-				rel="noopener noreferrer"
-				class="text-subtext1 hover:text-accent transition-colors duration-200"
-				title="View Site Analytics"
-			>
-				{value} views
-			</a> -->
-
-			<span class="text-surface0 hidden sm:inline">-</span>
-
 			{#if PUBLIC_COMMIT_SHA && PUBLIC_COMMIT_SHA !== 'dev'}
+				<span class="text-surface0">·</span>
 				<a
 					href={commitLinkUrl}
 					target="_blank"
 					rel="noopener noreferrer"
-					class="text-subtext1 hover:text-accent flex items-center gap-x-1 transition-colors duration-200"
+					class="text-overlay1 hover:text-accent font-mono transition-colors duration-200"
 					title="View deployment commit ({PUBLIC_COMMIT_SHA})"
 				>
-					<IconGitCommit size={18} stroke={1.5} class="shrink-0" />
-					<span>{shortSha}</span>
+					{shortSha}
 				</a>
-			{:else}
-				<span class="text-overlay1 flex items-center gap-x-1" title="Local Build">
-					<IconGitCommit size={18} stroke={1.5} class="shrink-0" />
-					<span>local build</span>
-				</span>
 			{/if}
-
-			<span class="text-surface0 hidden sm:inline">-</span>
-
-			<div class="flex items-center gap-x-3">
-				{#each Socials.filter((item) => item.footer) as item (item.url)}
-					{@const Icon = item.icon}
-					<a
-						href={item.url}
-						target="_blank"
-						rel="noopener noreferrer"
-						aria-label={item.label}
-						class="text-subtext1 hover:text-accent transition-colors duration-200"
-					>
-						<Icon stroke={1.5} />
-					</a>
-				{/each}
-			</div>
 		</div>
 	</footer>
 </div>
+<!-- {/* local build / dev text removed from visible UI */} -->
