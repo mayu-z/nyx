@@ -11,7 +11,7 @@ alt = "Aletheia project card"
 
 [[links]]
 text = "GitHub"
-url = "https://github.com/mayu-z/aletheia"
+url = "https://github.com/MeghVyas3132/Aletheia"
 ~~~
 
 # Aletheia

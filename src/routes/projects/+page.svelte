@@ -17,13 +17,22 @@
 		clearTimeout(hideTimeout);
 		activeProject = project;
 
-		let computedLeft = event.clientX + 10;
+		const row = event.currentTarget as HTMLElement;
+		const rect = row.getBoundingClientRect();
+
+		// Position card so its top sits 3-4px above the divider (bottom edge of row)
+		const cardTop = rect.bottom - 4;
+
+		let computedLeft = rect.left + rect.width / 2;
 		if (computedLeft + 300 > window.innerWidth) {
-			computedLeft = event.clientX - 10 - 300;
+			computedLeft = window.innerWidth - 300 - 16;
+		}
+		if (computedLeft < 16) {
+			computedLeft = 16;
 		}
 
 		cardPos = {
-			top: event.clientY,
+			top: cardTop,
 			left: computedLeft
 		};
 	}

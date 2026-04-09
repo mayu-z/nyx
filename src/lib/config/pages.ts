@@ -66,7 +66,7 @@ export const experienceTimeline: ExperienceTimelineItem[] = [
 	{
 		company: 'Rift Hackathon',
 		role: 'Participant',
-		url: 'https://github.com/mayu-z/zeus',
+		url: 'https://github.com/Antxnrx/zeus',
 		logoUrl: '/logos/rift.png',
 		logoAlt: 'Rift Logo',
 		startDate: '2026-01-01',
