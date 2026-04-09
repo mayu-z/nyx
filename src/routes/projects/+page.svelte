@@ -10,13 +10,36 @@
 	let { data }: { data: PageData } = $props();
 
 	let activeProject = $state<ProjectEntry | null>(null);
-	let mouseX = $state(0);
-	let mouseY = $state(0);
-	let innerWidth = $state(0);
+	let cardPos = $state({ top: 0, left: 0 });
+	let hideTimeout: ReturnType<typeof setTimeout>;
 
-	function handleMouseMove(e: MouseEvent) {
-		mouseX = e.clientX;
-		mouseY = e.clientY;
+	function onRowEnter(project: ProjectEntry, event: MouseEvent) {
+		clearTimeout(hideTimeout);
+		activeProject = project;
+
+		let computedLeft = event.clientX + 10;
+		if (computedLeft + 300 > window.innerWidth) {
+			computedLeft = event.clientX - 10 - 300;
+		}
+
+		cardPos = {
+			top: event.clientY,
+			left: computedLeft
+		};
+	}
+
+	function onRowLeave() {
+		hideTimeout = setTimeout(() => {
+			activeProject = null;
+		}, 150);
+	}
+
+	function onCardEnter() {
+		clearTimeout(hideTimeout);
+	}
+
+	function onCardLeave() {
+		activeProject = null;
 	}
 
 	function getGithubUrl(project: ProjectEntry): string | undefined {
@@ -27,25 +50,28 @@
 	}
 </script>
 
-<svelte:window bind:innerWidth />
-
 <svelte:head>
 	<meta name="description" content="A collection of projects by Mayuresh Singh." />
 	<title>Projects | mayuu.me</title>
 </svelte:head>
 
-<div class="projects-container" onmousemove={handleMouseMove} role="list">
+<div class="projects-container" role="list">
 	<hr class="divider" />
 	{#each data.projects as project}
-		<a
-			href={`/projects/${project.slug}`}
-			class="project-row"
-			onmouseenter={() => (activeProject = project)}
-			onmouseleave={() => (activeProject = null)}
+		<!-- svelte-ignore a11y_no_static_element_interactions -->
+		<div
+			class="row-container"
+			onmouseenter={(e) => onRowEnter(project, e)}
+			onmouseleave={onRowLeave}
 		>
-			<span class="name">{project.metadata.title}</span>
-			<span class="date">{formatDate(project.metadata.date)}</span>
-		</a>
+			<a href={`/projects/${project.slug}`} class="project-row">
+				<div class="row-left">
+					<span class="name">{project.metadata.title}</span>
+					<p class="row-desc">{project.metadata.description}</p>
+				</div>
+				<span class="date">{formatDate(project.metadata.date)}</span>
+			</a>
+		</div>
 		<hr class="divider" />
 	{/each}
 </div>
@@ -55,13 +81,13 @@
 	{@const displayUrl = ghUrl
 		? ghUrl.replace(/^https?:\/\/(www\.)?/, '')
 		: `github.com/mayu-z/${activeProject.slug}`}
+	<!-- svelte-ignore a11y_no_static_element_interactions -->
 	<div
 		class="hover-card"
+		style="top: {cardPos.top}px; left: {cardPos.left}px;"
+		onmouseenter={onCardEnter}
+		onmouseleave={onCardLeave}
 		transition:fly={{ y: 4, duration: 150 }}
-		style="
-			left: {mouseX + 16 > innerWidth - 300 ? mouseX - 280 : mouseX + 16}px;
-			top: {mouseY + 8}px;
-		"
 	>
 		{#if activeProject.metadata.image}
 			<img
@@ -74,8 +100,13 @@
 		<div class="card-date">{formatDate(activeProject.metadata.date)}</div>
 		<hr class="card-divider" />
 		<div class="card-desc">{activeProject.metadata.description}</div>
-		<div class="card-stats">★ — ⑂ —</div>
-		<div class="card-link">→ {displayUrl}</div>
+		{#if ghUrl}
+			<a href={ghUrl} target="_blank" rel="noopener noreferrer" class="card-link block"
+				>→ {displayUrl}</a
+			>
+		{:else}
+			<div class="card-link">→ {displayUrl}</div>
+		{/if}
 	</div>
 {/if}
 
@@ -87,30 +118,59 @@
 		width: 100%;
 		max-width: 800px;
 		margin: 0 auto;
+		position: relative;
+		overflow: visible;
+	}
+
+	.row-container {
+		position: relative;
 	}
 
 	.project-row {
 		display: flex;
 		justify-content: space-between;
-		align-items: center;
-		padding: 1rem 0;
+		align-items: flex-start;
+		gap: 1rem;
+		padding: 1.2rem 0;
 		cursor: pointer;
 		text-decoration: none;
+	}
+
+	.row-left {
+		min-width: 0;
+		flex: 1;
 	}
 
 	.name {
 		color: #cdd6f4;
 		transition: color 0.15s ease;
-		font-size: 15px;
+		font-size: 28px;
+		font-weight: 700;
+		line-height: 1.2;
+		display: block;
 	}
 
 	.project-row:hover .name {
 		color: #b4befe;
 	}
 
+	.row-desc {
+		color: #a6adc8;
+		font-size: 15px;
+		line-height: 1.4;
+		margin-top: 6px;
+		display: -webkit-box;
+		-webkit-line-clamp: 2;
+		line-clamp: 2;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+	}
+
 	.date {
 		color: #6c7086;
 		font-size: 13px;
+		white-space: nowrap;
+		padding-top: 6px;
 	}
 
 	.divider {
@@ -122,14 +182,14 @@
 	.hover-card {
 		font-family: 'JetBrains Mono', monospace;
 		position: fixed;
-		pointer-events: none;
 		background: #181825;
 		border: 1px solid #313244;
 		border-radius: 8px;
 		padding: 16px;
-		width: 260px;
+		width: max-content;
+		max-width: 300px;
 		box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
-		z-index: 100;
+		z-index: 50;
 	}
 
 	.card-image {
@@ -165,28 +225,22 @@
 		color: #a6adc8;
 		line-height: 1.4;
 		margin-bottom: 12px;
-		/* Line clamp to 3 lines just in case descriptions are long */
 		display: -webkit-box;
 		-webkit-line-clamp: 3;
 		-webkit-box-orient: vertical;
 		overflow: hidden;
 	}
 
-	.card-stats {
-		font-size: 12px;
-		color: #6c7086;
-		margin-bottom: 8px;
-	}
-
 	.card-link {
 		font-size: 12px;
 		color: #b4befe;
 		word-break: break-all;
+		text-decoration: none;
+		transition: color 0.15s ease;
 	}
 
-	@media (max-width: 600px) {
-		.hover-card {
-			display: none;
-		}
+	a.card-link:hover {
+		color: #cdd6f4;
+		text-decoration: underline;
 	}
 </style>
