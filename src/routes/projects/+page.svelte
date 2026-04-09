@@ -140,9 +140,21 @@
 		justify-content: space-between;
 		align-items: flex-start;
 		gap: 1rem;
-		padding: 1.2rem 0;
+		padding: 1.2rem 0 1.2rem 1.2rem;
 		cursor: pointer;
 		text-decoration: none;
+		position: relative;
+	}
+
+	.project-row::before {
+		content: '';
+		position: absolute;
+		left: 0;
+		top: 50%;
+		transform: translateY(-50%);
+		width: 3px;
+		height: 60%;
+		background-color: var(--current-accent-color, #b4befe);
 	}
 
 	.row-left {
@@ -193,7 +205,7 @@
 		position: fixed;
 		background: #181825;
 		border: 1px solid #313244;
-		border-radius: 8px;
+		border-radius: 0;
 		padding: 16px;
 		width: max-content;
 		max-width: 300px;
@@ -205,7 +217,7 @@
 		width: 100%;
 		aspect-ratio: 16/9;
 		object-fit: cover;
-		border-radius: 4px;
+		border-radius: 0;
 		margin-bottom: 12px;
 		background-color: #313244;
 	}
