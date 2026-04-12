@@ -65,13 +65,13 @@
 				</abbr>
 				<span class="text-xs leading-none opacity-75">
 					<span class="opacity-40">&lbrace;</span><a
-						href="https://ctp-webr.ing/json/previous"
+						href="https://ctp-webr.ing/mayu/previous"
 						target="_blank"
 						rel="noopener noreferrer"
 						class="text-accent hover:text-accent/80 px-0.5 align-top transition-colors duration-200"
 						title="Previous site in webring">&lt;</a
 					><span class="text-accent opacity-40">|</span><a
-						href="https://ctp-webr.ing/json/next"
+						href="https://ctp-webr.ing/mayu/next"
 						target="_blank"
 						rel="noopener noreferrer"
 						class="text-accent hover:text-accent/80 px-0.5 align-top transition-colors duration-200"
