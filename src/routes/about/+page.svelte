@@ -27,7 +27,7 @@
 		<div class="grid grid-cols-1 gap-6 md:grid-cols-3">
 			<div class="md:col-span-1">
 				<img
-					src="/images/unnamed.jpg"
+					src="/images/about-photo.jpg"
 					alt="Mayuresh Singh, backend and infrastructure engineer"
 					class="h-full w-full rounded-md object-cover shadow-lg transition-transform duration-300 hover:scale-[1.02]"
 				/>
