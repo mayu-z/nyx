@@ -3,7 +3,7 @@
 </script>
 
 <svelte:head>
-	<title>Resume - Mayu Singh</title>
+	<title>Resume - Mayuresh Singh</title>
 </svelte:head>
 
 <div class="mx-auto max-w-5xl space-y-6 px-4 py-8 md:px-6">
@@ -29,10 +29,10 @@
 			data="/resume.pdf"
 			type="application/pdf"
 			class="h-[80vh] w-full"
-			title="Mayu Singh's Resume"
+			title="Mayuresh Singh's Resume"
 		>
 			<!-- Fallback for browsers that don't support object -->
-			<iframe src="/resume.pdf" class="h-[80vh] w-full border-0" title="Mayu Singh's Resume"
+			<iframe src="/resume.pdf" class="h-[80vh] w-full border-0" title="Mayuresh Singh's Resume"
 			></iframe>
 		</object>
 	</div>

@@ -51,12 +51,12 @@ const siteConfig: Site = {
 		url: 'https://github.com/mayu-z/nyx',
 		commitBaseUrl: 'https://github.com/mayu-z/nyx/commit/'
 	},
-	name: 'Mayu Singh',
+	name: 'Mayuresh Singh',
 	url: dev ? 'http://localhost:5173' : 'https://mayusingh.dev',
 	description:
-		'Mayu Singh -  Software Engineer in Bengaluru, India. I like occasionally building cool shit',
+		'Mayuresh Singh -  Software Engineer in Bengaluru, India. I like occasionally building cool shit',
 	tags: [
-		'Mayu Singh',
+		'Mayuresh Singh',
 		'Senior Software Engineer',
 		'Bengaluru Software Developer',
 		'India',
@@ -74,7 +74,7 @@ const siteConfig: Site = {
 		'Software Architecture'
 	],
 	seo: {
-		author: 'Mayu Singh',
+		author: 'Mayuresh Singh',
 		birthDate: '2004-02-12',
 		worksFor: {
 			name: 'Aexiz',
