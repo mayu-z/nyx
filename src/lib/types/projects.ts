@@ -17,6 +17,7 @@ export interface ProjectMetadata {
 	date: string;
 	published: boolean;
 	featured?: boolean;
+	category?: string;
 	tags?: string[];
 	image?: ProjectImage;
 	links?: ProjectLink[];

@@ -3,6 +3,7 @@ title = "flappy-project-react"
 description = "A Flappy Bird clone in React - built to practice component architecture, game loop logic, and collision detection in a browser environment."
 date = "2024-10-15"
 published = true
+category = "experiment"
 tags = ["JavaScript", "React", "game", "clone"]
 
 [image]
@@ -18,3 +19,5 @@ url = "https://github.com/mayu-z/flappy-project-react"
 
 A Flappy Bird clone in React - built to practice component architecture,
 game loop logic, and collision detection in a browser environment.
+
+First React project — learned component lifecycle, requestAnimationFrame game loops, and collision detection.

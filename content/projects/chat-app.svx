@@ -1,9 +1,8 @@
 ~~~
 title = "chat-app"
-description = "A full-stack real-time chat app built with the MERN stack, containerized end-to-end with Docker and Docker Compose. Features bidirectional WebSocket communication, JWT auth, and a production-ready deployment setup."
+description = "Real-time chat app built with the MERN stack, containerized end-to-end with Docker Compose. Bidirectional WebSocket communication with JWT auth and Redis pub/sub for cross-instance message delivery."
 date = "2025-12-24"
 published = true
-featured = true
 tags = ["MERN", "WebSocket", "JWT", "Docker", "Docker Compose"]
 
 [image]
@@ -17,6 +16,8 @@ url = "https://github.com/mayu-z/chat-app"
 
 # chat-app
 
-A full-stack real-time chat app built with the MERN stack, containerized end-to-end
-with Docker and Docker Compose. Features bidirectional WebSocket communication,
-JWT auth, and a production-ready deployment setup.
+Real-time chat app built with the MERN stack, containerized end-to-end with
+Docker Compose. Bidirectional WebSocket communication with JWT auth and Redis
+pub/sub for cross-instance message delivery.
+
+Handles concurrent WebSocket connections with Redis pub/sub for cross-instance message delivery.

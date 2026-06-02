@@ -1,6 +1,6 @@
 ~~~
 title = "Aletheia"
-description = "Multi-agent AI fact-checking system built at Deep Hackathon. Uses LangGraph and FastAPI to run parallel evidence analysis across sources, with Aptos for on-chain verification."
+description = "Multi-agent AI fact-checking system built at Deep Hackathon (Finalist). Uses LangGraph and FastAPI to run parallel evidence analysis across sources, with Aptos for on-chain verification."
 date = "2026-02-08"
 published = true
 tags = ["FastAPI", "LangGraph", "multi-agent", "Aptos", "hackathon"]
@@ -16,6 +16,8 @@ url = "https://github.com/MeghVyas3132/Aletheia"
 
 # Aletheia
 
-Multi-agent AI fact-checking system built at Deep Hackathon. Uses LangGraph and
-FastAPI to run parallel evidence analysis across sources, with Aptos for
-on-chain verification.
+Multi-agent AI fact-checking system built at Deep Hackathon (Finalist). Uses
+LangGraph and FastAPI to run parallel evidence analysis across sources, with
+Aptos for on-chain verification.
+
+Runs 3 concurrent LangGraph agents for parallel evidence gathering — fact-checks claims against multiple sources simultaneously.

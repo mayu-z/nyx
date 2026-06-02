@@ -3,6 +3,7 @@ title = "choker"
 description = "A CSS utility experiment exploring custom property cascades and responsive layout primitives. Built to scratch a styling itch."
 date = "2025-06-25"
 published = true
+category = "experiment"
 tags = ["CSS", "design", "style"]
 
 [image]
@@ -17,3 +18,5 @@ url = "https://github.com/mayu-z/choker"
 # choker
 
 A CSS utility experiment exploring custom property cascades and responsive layout primitives. Built to scratch a styling itch.
+
+CSS-only experiment exploring custom property cascades for responsive design tokens.

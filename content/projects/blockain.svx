@@ -3,6 +3,7 @@ title = "blockchain"
 description = "A from-scratch JavaScript implementation of a basic blockchain — proof-of-work, block validation, and chain integrity checks. Built to understand the fundamentals, not to ship a coin."
 date = "2025-11-23"
 published = true
+category = "experiment"
 tags = ["JavaScript", "blockchain", "proof-of-work", "data-structures"]
 
 [image]
@@ -19,3 +20,5 @@ url = "https://github.com/mayu-z/blockchain"
 A from-scratch JavaScript implementation of a basic blockchain — proof-of-work,
 block validation, and chain integrity checks. Built to understand the
 fundamentals, not to ship a coin.
+
+Learning exercise: implemented proof-of-work, block validation, and chain integrity from scratch to understand consensus fundamentals.

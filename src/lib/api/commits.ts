@@ -131,14 +131,14 @@ function processResponse(data: KatibV2Response): CommitData {
 
 const GITHUB_USERNAME = 'mayu-z';
 
-interface GitHubEvent {
-	type: string;
-	repo: { name: string };
-	payload: {
-		commits?: Array<{ sha: string; message: string }>;
-		head?: string;
-	};
-	created_at: string;
+/** Repos to exclude from the commit feed (noise, configs, learning projects) */
+const REPO_BLOCKLIST = ['nvim-config', 'flappy-project-react', 'nyx'];
+
+interface GitHubRepo {
+	full_name: string;
+	name: string;
+	fork: boolean;
+	pushed_at: string;
 }
 
 interface GitHubCommitDetail {
@@ -148,70 +148,94 @@ interface GitHubCommitDetail {
 	stats?: { additions: number; deletions: number };
 }
 
+const GH_HEADERS = { 'User-Agent': 'nyx-portfolio', Accept: 'application/vnd.github+json' };
+
 /**
- * Fetches the latest commits from GitHub API
+ * Fetches the latest commits by finding recently-pushed repos,
+ * then grabbing the latest commit from each.
+ * Unlike the Events API, this has no 90-day window limitation.
  */
 async function fetchFromGitHub(): Promise<KatibV2Response | null> {
 	try {
-		// Fetch recent events
-		const eventsRes = await fetch(
-			`https://api.github.com/users/${GITHUB_USERNAME}/events?per_page=30`,
-			{ headers: { 'User-Agent': 'nyx-portfolio' } }
+		// 1. Get repos sorted by most recently pushed
+		const reposRes = await fetch(
+			`https://api.github.com/users/${GITHUB_USERNAME}/repos?sort=pushed&direction=desc&per_page=20`,
+			{ headers: GH_HEADERS }
 		);
 
-		if (!eventsRes.ok) return null;
+		if (!reposRes.ok) return null;
 
-		const events: GitHubEvent[] = await eventsRes.json();
+		const repos: GitHubRepo[] = await reposRes.json();
 
-		// Get push events with commits
-		const pushEvents = events
-			.filter((e) => e.type === 'PushEvent' && e.payload.commits?.length)
-			.slice(0, 10);
+		// 2. Filter out blocked repos and forks, take top candidates
+		const eligibleRepos = repos
+			.filter((r) => !r.fork)
+			.filter((r) => !REPO_BLOCKLIST.some((blocked) => r.name === blocked))
+			.slice(0, 8);
 
-		// Collect unique commits from different repos
-		const seenRepos = new Set<string>();
-		const commits: V2CommitItem[] = [];
+		if (eligibleRepos.length === 0) return null;
 
-		for (const event of pushEvents) {
-			if (seenRepos.has(event.repo.name) || commits.length >= 4) continue;
-			seenRepos.add(event.repo.name);
+		// 3. Fetch latest commit from each repo (in parallel, up to 5)
+		const commitPromises = eligibleRepos
+			.slice(0, 5)
+			.map(async (repo): Promise<V2CommitItem | null> => {
+				try {
+					// Get the latest commit on the default branch
+					const commitsRes = await fetch(
+						`https://api.github.com/repos/${repo.full_name}/commits?per_page=1`,
+						{ headers: GH_HEADERS }
+					);
 
-			const latestCommit = event.payload.commits![event.payload.commits!.length - 1];
+					if (!commitsRes.ok) return null;
 
-			// Try to get commit details for additions/deletions
-			let additions = 0;
-			let deletions = 0;
-			try {
-				const detailRes = await fetch(
-					`https://api.github.com/repos/${event.repo.name}/commits/${latestCommit.sha}`,
-					{ headers: { 'User-Agent': 'nyx-portfolio' } }
-				);
-				if (detailRes.ok) {
-					const detail: GitHubCommitDetail = await detailRes.json();
-					additions = detail.stats?.additions || 0;
-					deletions = detail.stats?.deletions || 0;
+					const [latestCommit]: GitHubCommitDetail[] = await commitsRes.json();
+					if (!latestCommit) return null;
+
+					// Fetch commit details for additions/deletions stats
+					let additions = 0;
+					let deletions = 0;
+					try {
+						const detailRes = await fetch(
+							`https://api.github.com/repos/${repo.full_name}/commits/${latestCommit.sha}`,
+							{ headers: GH_HEADERS }
+						);
+						if (detailRes.ok) {
+							const detail: GitHubCommitDetail = await detailRes.json();
+							additions = detail.stats?.additions || 0;
+							deletions = detail.stats?.deletions || 0;
+						}
+					} catch {
+						// Ignore, use 0s
+					}
+
+					return {
+						repo: repo.full_name,
+						additions,
+						deletions,
+						commitUrl: latestCommit.html_url,
+						committedDate: latestCommit.commit.author.date,
+						oid: latestCommit.sha.substring(0, 7),
+						messageHeadline: latestCommit.commit.message.split('\n')[0].substring(0, 72),
+						messageBody: ''
+					};
+				} catch {
+					return null;
 				}
-			} catch {
-				// Ignore, use 0s
-			}
-
-			commits.push({
-				repo: event.repo.name,
-				additions,
-				deletions,
-				commitUrl: `https://github.com/${event.repo.name}/commit/${latestCommit.sha}`,
-				committedDate: event.created_at,
-				oid: latestCommit.sha.substring(0, 7),
-				messageHeadline: latestCommit.message.split('\n')[0].substring(0, 72),
-				messageBody: ''
 			});
-		}
+
+		const results = await Promise.all(commitPromises);
+		const commits = results.filter((c): c is V2CommitItem => c !== null);
 
 		if (commits.length === 0) return null;
 
+		// Sort by most recent first
+		commits.sort(
+			(a, b) => new Date(b.committedDate).getTime() - new Date(a.committedDate).getTime()
+		);
+
 		return {
 			commits,
-			languages: FALLBACK_RAW.languages, // Keep static languages for now
+			languages: FALLBACK_RAW.languages,
 			stats: {
 				totalAdditions: commits.reduce((a, c) => a + c.additions, 0),
 				totalDeletions: commits.reduce((a, c) => a + c.deletions, 0),

@@ -3,6 +3,7 @@ title = "take"
 description = "A minimal HTML/CSS landing page template. Quick experiment in no-JS, no-build-step web pages."
 date = "2024-09-16"
 published = true
+category = "experiment"
 tags = ["HTML", "web", "basic"]
 
 [image]
@@ -17,3 +18,5 @@ url = "https://github.com/mayu-z/take"
 # take
 
 A minimal HTML/CSS landing page template. Quick experiment in no-JS, no-build-step web pages.
+
+Constraint exercise: build a complete landing page with zero JavaScript and zero build tools.

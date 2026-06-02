@@ -5,6 +5,7 @@
 
 	let mapContainer = $state<HTMLDivElement>();
 	let leafletLoaded = $state(false);
+	let mapFailed = $state(false);
 	let mapInstance: any = null;
 	let currentTime = $state('');
 	let isDaytime = $state(true);
@@ -30,36 +31,59 @@
 		updateTime();
 		const interval = setInterval(updateTime, 1000);
 
+		// Set a 2-second timeout for map loading fallback
+		const fallbackTimeout = setTimeout(() => {
+			if (!leafletLoaded) {
+				mapFailed = true;
+			}
+		}, 2000);
+
 		// Handle async map loading
 		(async () => {
 			if (browser && mapContainer) {
-				const L = (await import('leaflet')).default;
-				await import('leaflet/dist/leaflet.css');
-				mapInstance = L.map(mapContainer, {
-					zoomControl: false,
-					attributionControl: false,
-					dragging: true,
-					scrollWheelZoom: true,
-					doubleClickZoom: true,
-					boxZoom: true,
-					keyboard: true,
-					touchZoom: true
-				}).setView([12.9716, 77.5946], 11);
+				try {
+					const L = (await import('leaflet')).default;
+					await import('leaflet/dist/leaflet.css');
+					mapInstance = L.map(mapContainer, {
+						zoomControl: false,
+						attributionControl: false,
+						dragging: true,
+						scrollWheelZoom: true,
+						doubleClickZoom: true,
+						boxZoom: true,
+						keyboard: true,
+						touchZoom: true
+					}).setView([12.9716, 77.5946], 11);
 
-				L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
-					maxZoom: 19,
-					attribution: '',
-					keepBuffer: 4,
-					updateWhenIdle: false,
-					updateWhenZooming: false
-				}).addTo(mapInstance);
+					L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+						maxZoom: 19,
+						attribution: '',
+						keepBuffer: 4,
+						updateWhenIdle: false,
+						updateWhenZooming: false
+					}).addTo(mapInstance);
 
-				leafletLoaded = true;
+					// Add a pulsing marker for Bangalore
+					const pulseIcon = L.divIcon({
+						className: 'pulse-marker',
+						iconSize: [20, 20],
+						iconAnchor: [10, 10],
+						html: '<div class="pulse-marker-dot"></div><div class="pulse-marker-ring"></div>'
+					});
+					L.marker([12.9716, 77.5946], { icon: pulseIcon }).addTo(mapInstance);
+
+					leafletLoaded = true;
+					mapFailed = false;
+					clearTimeout(fallbackTimeout);
+				} catch {
+					mapFailed = true;
+				}
 			}
 		})();
 
 		return () => {
 			clearInterval(interval);
+			clearTimeout(fallbackTimeout);
 		};
 	});
 
@@ -70,7 +94,9 @@
 	}
 </script>
 
-<div class="border-surface0 bg-base flex flex-col rounded-xl border p-4 shadow-lg lg:col-span-1">
+<div
+	class="location-card border-surface0 bg-base flex h-full flex-col rounded-xl border p-4 shadow-lg"
+>
 	<button
 		onclick={recenterMap}
 		class="text-text hover:text-accent mb-3 flex w-full cursor-pointer items-center gap-2 text-left text-sm font-semibold transition-colors"
@@ -82,13 +108,30 @@
 		{#if browser}
 			<div bind:this={mapContainer} class="bg-surface0 relative z-0 h-full w-full"></div>
 			{#if !leafletLoaded}
-				<div class="bg-surface0 absolute inset-0 flex items-center justify-center">
-					<span class="text-subtext1 text-xs">Loading map...</span>
-				</div>
+				{#if mapFailed}
+					<!-- Static fallback after 2 seconds -->
+					<div class="absolute inset-0 flex flex-col items-center justify-center gap-2">
+						<span class="text-2xl">📍</span>
+						<span class="text-subtext0 text-sm font-medium">Bangalore, KA</span>
+						<span class="text-overlay0 text-xs">India</span>
+					</div>
+				{:else}
+					<!-- Shimmer skeleton placeholder -->
+					<div class="shimmer-container absolute inset-0">
+						<div class="shimmer-bg"></div>
+						<div class="shimmer-content">
+							<div class="shimmer-pin"></div>
+							<div class="shimmer-line shimmer-line-1"></div>
+							<div class="shimmer-line shimmer-line-2"></div>
+						</div>
+					</div>
+				{/if}
 			{/if}
 		{:else}
-			<div class="absolute inset-0 flex items-center justify-center">
-				<span class="text-subtext1 text-xs">Loading map...</span>
+			<div class="absolute inset-0 flex flex-col items-center justify-center gap-2">
+				<span class="text-2xl">📍</span>
+				<span class="text-subtext0 text-sm font-medium">Bangalore, KA</span>
+				<span class="text-overlay0 text-xs">India</span>
 			</div>
 		{/if}
 	</div>
@@ -125,5 +168,110 @@
 
 	:global(.leaflet-pane) {
 		background: var(--color-base) !important;
+	}
+
+	/* Shimmer skeleton animation */
+	.shimmer-container {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background: var(--color-surface0);
+	}
+
+	.shimmer-bg {
+		position: absolute;
+		inset: 0;
+		background: linear-gradient(
+			110deg,
+			transparent 25%,
+			color-mix(in oklch, var(--color-surface1) 40%, transparent) 37%,
+			transparent 50%
+		);
+		background-size: 200% 100%;
+		animation: shimmer 1.8s ease-in-out infinite;
+	}
+
+	.shimmer-content {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 0.5rem;
+		z-index: 1;
+	}
+
+	.shimmer-pin {
+		width: 1.5rem;
+		height: 1.5rem;
+		border-radius: 50%;
+		background: var(--color-surface1);
+	}
+
+	.shimmer-line {
+		height: 0.5rem;
+		border-radius: 0.25rem;
+		background: var(--color-surface1);
+	}
+
+	.shimmer-line-1 {
+		width: 5rem;
+	}
+
+	.shimmer-line-2 {
+		width: 3rem;
+	}
+
+	@keyframes shimmer {
+		0% {
+			background-position: 200% 0;
+		}
+		100% {
+			background-position: -200% 0;
+		}
+	}
+
+	.location-card {
+		min-height: 280px;
+	}
+
+	/* Pulsing map marker */
+	:global(.pulse-marker) {
+		background: none !important;
+		border: none !important;
+	}
+
+	:global(.pulse-marker-dot) {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		width: 8px;
+		height: 8px;
+		border-radius: 50%;
+		background: var(--color-accent);
+		transform: translate(-50%, -50%);
+		box-shadow: 0 0 6px 2px color-mix(in oklch, var(--color-accent) 50%, transparent);
+	}
+
+	:global(.pulse-marker-ring) {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		width: 20px;
+		height: 20px;
+		border-radius: 50%;
+		border: 2px solid var(--color-accent);
+		transform: translate(-50%, -50%);
+		animation: marker-pulse 2s ease-out infinite;
+		opacity: 0.7;
+	}
+
+	@keyframes marker-pulse {
+		0% {
+			transform: translate(-50%, -50%) scale(0.5);
+			opacity: 0.7;
+		}
+		100% {
+			transform: translate(-50%, -50%) scale(2.5);
+			opacity: 0;
+		}
 	}
 </style>

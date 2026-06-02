@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { onMount, onDestroy } from 'svelte';
 	import LinkWithIcon from '$components/LinkWithIcon.svelte';
 	import Featured, { type FeaturedProject } from '$components/layout/Featured.svelte';
 	import { IconArrowRight, IconExternalLink, IconActivity } from '@tabler/icons-svelte';
@@ -6,7 +7,7 @@
 	import { Home } from '$lib/config/pages';
 	import Experience from '$components/Experience.svelte';
 	import LocationMap from '$components/bento/LocationMap.svelte';
-	import type { CommitData } from '$lib/api/commits';
+	import type { CommitData, ProcessedCommit } from '$lib/api/commits';
 	import { OPEN_TO_WORK } from '$lib/config/site';
 
 	type PageData = {
@@ -19,6 +20,63 @@
 	};
 
 	let { data }: { data: PageData } = $props();
+
+	// --- Live commit polling ---
+	const POLL_INTERVAL = 3 * 60 * 1000; // 3 minutes
+	const TIME_TICK = 30_000; // update relative timestamps every 30s
+
+	let liveCommits = $state<ProcessedCommit[]>(data.commitData?.commits ?? []);
+	let lastUpdated = $state<Date>(new Date());
+	let isRefreshing = $state(false);
+	let now = $state(Date.now());
+
+	let pollTimer: ReturnType<typeof setInterval>;
+	let tickTimer: ReturnType<typeof setInterval>;
+
+	function relativeTime(dateStr: string): string {
+		const diff = now - new Date(dateStr).getTime();
+		const seconds = Math.floor(diff / 1000);
+		if (seconds < 60) return 'just now';
+		const minutes = Math.floor(seconds / 60);
+		if (minutes < 60) return `${minutes}m ago`;
+		const hours = Math.floor(minutes / 60);
+		if (hours < 24) return `${hours}h ago`;
+		const days = Math.floor(hours / 24);
+		return `${days}d ago`;
+	}
+
+	async function refreshCommits() {
+		if (isRefreshing) return;
+		isRefreshing = true;
+		try {
+			const res = await fetch('/api/commits');
+			if (res.ok) {
+				const freshData: CommitData = await res.json();
+				if (freshData.commits?.length) {
+					liveCommits = freshData.commits;
+					lastUpdated = new Date();
+				}
+			}
+		} catch {
+			// silently fail, keep showing existing data
+		} finally {
+			isRefreshing = false;
+		}
+	}
+
+	onMount(() => {
+		// poll for new commits
+		pollTimer = setInterval(refreshCommits, POLL_INTERVAL);
+		// tick relative timestamps
+		tickTimer = setInterval(() => {
+			now = Date.now();
+		}, TIME_TICK);
+	});
+
+	onDestroy(() => {
+		clearInterval(pollTimer);
+		clearInterval(tickTimer);
+	});
 </script>
 
 <div class="mx-auto max-w-6xl space-y-12 px-0 py-8 md:space-y-16 md:px-4 md:py-12">
@@ -29,21 +87,18 @@
 		{#if OPEN_TO_WORK}
 			<span class="status-badge available">
 				<span class="status-dot"></span>
-				Open to internships & collaborations
+				Open to Backend / DevOps / Infra roles — remote or Bangalore
 			</span>
 		{/if}
 
 		<p class="text-text text-base font-medium md:text-lg">
-			Backend & DevOps engineer. Building reliable systems that scale.
+			Backend & DevOps — Go services, Docker infra, and CI/CD pipelines that don't page you at 3 AM.
 		</p>
 		<p class="text-subtext0 max-w-prose text-lg leading-relaxed">
-			I work at the intersection of backend engineering and infrastructure - building reliable
-			systems with Go, containerizing them with Docker, and shipping them through CI/CD pipelines.
-			Currently a BCA student in Bangalore, part of C3 (a cloud computing community), and DevOps
-			engineer at Aexiz Solutions.
-			<br /><br />
-			Right now I'm deep into RAG systems and agentic AI workflows - and building things that actually
-			work in production, not just on localhost.
+			I write Go services and wire up the infra around them — Docker, CI/CD, PostgreSQL, the works.
+			Currently deep in RAG systems and agentic AI workflows, figuring out how to make them hold up
+			beyond localhost. BCA student in Bangalore, DevOps at Aexiz, community lead at C3, and I
+			occasionally win hackathons.
 		</p>
 
 		<div class="flex flex-wrap items-center gap-3 pt-1">
@@ -55,7 +110,7 @@
 				<IconArrowRight size={16} />
 			</a>
 			<a
-				href="https://cal.com/mayuresh-singh/secret"
+				href="https://cal.com/mayuresh-singh/chat"
 				target="_blank"
 				rel="noopener noreferrer"
 				class="border-surface1 text-subtext0 hover:border-accent hover:text-accent inline-flex items-center gap-2 rounded-lg border px-4 py-2 text-sm font-semibold transition-colors"
@@ -127,26 +182,21 @@
 		<div class="grid grid-cols-1 gap-5 md:gap-6 lg:grid-cols-2">
 			<div class="space-y-2">
 				<h3 class="text-text text-sm font-semibold">Recent Activity</h3>
-				<div class="border-surface0 bg-base rounded-xl border p-4 shadow-lg">
+				<div class="commit-card border-surface0 bg-base rounded-xl border p-4 shadow-lg">
 					<div class="mb-3 flex items-center justify-between gap-2 text-sm">
 						<h4 class="text-text flex items-center gap-2 font-semibold">
 							<IconActivity size={16} class="text-accent" />
 							<span>Latest Commits</span>
 						</h4>
-						<a
-							href="https://katib.jsn.cam"
-							target="_blank"
-							rel="noopener noreferrer"
-							aria-label="See how this is calculated Katib"
-							class="text-accent/80 hover:text-accent text-xs font-medium transition-colors"
-						>
-							[info]
-						</a>
+						<span class="live-badge" class:refreshing={isRefreshing}>
+							<span class="live-dot"></span>
+							<span class="live-text">LIVE</span>
+						</span>
 					</div>
-					{#if data.commitData?.commits?.length > 0}
+					{#if liveCommits.length > 0}
 						<ul class="space-y-1.5 text-sm">
-							{#each data.commitData.commits.slice(0, 4) as commit (commit.sha)}
-								<li>
+							{#each liveCommits.slice(0, 5) as commit (commit.sha)}
+								<li class="commit-row">
 									<a
 										href={commit.href}
 										target="_blank"
@@ -163,6 +213,9 @@
 												<span class="text-red">-{commit.deletions}</span>
 											</span>
 										{/if}
+										<span class="commit-time text-overlay0 shrink-0 text-xs"
+											>{relativeTime(commit.date)}</span
+										>
 									</a>
 								</li>
 							{/each}
@@ -170,7 +223,7 @@
 					{:else}
 						<p class="text-subtext1 text-sm italic">No recent public commits.</p>
 					{/if}
-					<div class="mt-3">
+					<div class="mt-3 flex items-center justify-between">
 						<a
 							href={Site.out.github}
 							target="_blank"
@@ -183,13 +236,18 @@
 								class="inline-block transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
 							/>
 						</a>
+						<span class="text-overlay0 text-xs">
+							Updated {relativeTime(lastUpdated.toISOString())}
+						</span>
 					</div>
 				</div>
 			</div>
 
-			<div class="space-y-2">
+			<div class="flex flex-col gap-2">
 				<h3 class="text-text text-sm font-semibold">Location</h3>
-				<LocationMap />
+				<div class="flex-1">
+					<LocationMap />
+				</div>
 			</div>
 		</div>
 	</section>
@@ -281,5 +339,69 @@
 	.stack-tags span:hover {
 		background: var(--color-surface1);
 		color: var(--color-accent);
+	}
+
+	/* Live commit badge */
+	.live-badge {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.35rem;
+		padding: 0.15rem 0.5rem;
+		border-radius: 9999px;
+		background: color-mix(in oklch, var(--color-green) 10%, transparent);
+		border: 1px solid color-mix(in oklch, var(--color-green) 20%, transparent);
+		transition: opacity 0.3s ease;
+	}
+
+	.live-badge.refreshing {
+		opacity: 0.5;
+	}
+
+	.live-dot {
+		width: 0.4rem;
+		height: 0.4rem;
+		border-radius: 50%;
+		background-color: var(--color-green);
+		animation: live-pulse 2s ease-in-out infinite;
+	}
+
+	.live-text {
+		font-size: 0.6rem;
+		font-weight: 700;
+		letter-spacing: 0.08em;
+		color: var(--color-green);
+	}
+
+	@keyframes live-pulse {
+		0%,
+		100% {
+			opacity: 1;
+			box-shadow: 0 0 0 0 color-mix(in oklch, var(--color-green) 40%, transparent);
+		}
+		50% {
+			opacity: 0.6;
+			box-shadow: 0 0 0 4px color-mix(in oklch, var(--color-green) 0%, transparent);
+		}
+	}
+
+	/* Commit row */
+	.commit-row {
+		transition:
+			transform 0.15s ease,
+			opacity 0.15s ease;
+	}
+
+	.commit-row:hover {
+		transform: translateX(2px);
+	}
+
+	.commit-time {
+		font-variant-numeric: tabular-nums;
+	}
+
+	/* Commit card shimmer on refresh */
+	.commit-card {
+		position: relative;
+		overflow: hidden;
 	}
 </style>

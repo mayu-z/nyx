@@ -53,26 +53,26 @@ export const experienceTimeline: ExperienceTimelineItem[] = [
 	},
 	{
 		company: 'Deep Hackathon',
-		role: 'Participant',
+		role: 'Finalist',
 		url: 'https://hackcanada.org/',
 		logoUrl: '/logos/hero.svg',
 		logoAlt: 'Deep Logo',
 		startDate: '2025-01-01',
 		endDate: '2025-01-02',
 		details:
-			'Participated in a 24-hour Deep Hackathon in 2025 and built Aletheia, which is listed in the projects section.',
+			'Finalist at the 24-hour Deep Hackathon (2025). Built Aletheia — a multi-agent AI fact-checking system using LangGraph, FastAPI, and Aptos for on-chain verification.',
 		logoScale: 0.85
 	},
 	{
 		company: 'Rift Hackathon',
-		role: 'Participant',
+		role: 'Finalist',
 		url: 'https://github.com/Antxnrx/zeus',
 		logoUrl: '/logos/rift.png',
 		logoAlt: 'Rift Logo',
 		startDate: '2026-01-01',
 		endDate: '2026-01-02',
 		details:
-			'Participated in Rift Hackathon (2026) and built Zeus: a CI/CD pipeline health-check and improvement system that runs tests and reports pipeline reliability.',
+			'Finalist at RIFT 2026. Built Zeus — an autonomous CI/CD healing agent that detects failing tests, generates fixes with LLM analysis, and auto-commits them via FastAPI + Redis.',
 		logoScale: 0.85
 	}
 ];

@@ -3,6 +3,7 @@ title = "nvim-config"
 description = "A personal Neovim config written in Lua - custom keybindings, a curated plugin setup, and a workflow tuned for backend development. Ongoing."
 date = "2025-12-26"
 published = true
+category = "experiment"
 tags = ["Lua", "neovim", "config", "developer-tools"]
 
 [image]
@@ -18,3 +19,5 @@ url = "https://github.com/mayu-z/nvim-config"
 
 A personal Neovim config written in Lua - custom keybindings, a curated plugin
 setup, and a workflow tuned for backend development. Ongoing.
+
+Daily driver — 40+ plugins managed with lazy.nvim, tuned for Go and Python backend workflows.

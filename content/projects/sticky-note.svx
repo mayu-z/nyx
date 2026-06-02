@@ -3,6 +3,7 @@ title = "sticky-note"
 description = "A zero-backend sticky note app — localStorage-persisted notes with drag positioning and inline editing. Pure frontend, zero dependencies."
 date = "2024-09-16"
 published = true
+category = "experiment"
 tags = ["JavaScript", "HTML", "CSS", "utility"]
 
 [image]
@@ -18,3 +19,5 @@ url = "https://github.com/mayu-z/sticky-note"
 
 A zero-backend sticky note app — localStorage-persisted notes with drag
 positioning and inline editing. Pure frontend, zero dependencies.
+
+Zero-dependency experiment — pure vanilla JS with localStorage persistence and drag-and-drop positioning.

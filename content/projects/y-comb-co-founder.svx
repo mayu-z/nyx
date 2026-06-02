@@ -1,8 +1,9 @@
 ~~~
 title = "Y-Combinator Co-Founder Tool"
-description = "A RAG-powered startup advisor built on YC knowledge - validates ideas, structures planning, and automates founder workflows using Kimi K2, ChromaDB, and sentence-transformers."
+description = "RAG-powered startup advisor that validates ideas against a chunked Y Combinator knowledge base. Uses ChromaDB + sentence-transformers for retrieval and Kimi K2 for grounded responses — not hallucinated startup advice."
 date = "2026-03-22"
 published = true
+featured = true
 tags = ["Python", "RAG", "Kimi K2", "ChromaDB", "Streamlit"]
 
 [image]
@@ -16,7 +17,8 @@ url = "https://github.com/mayu-z/y-comb-co-founder"
 
 # Y-Combinator Co-Founder Tool
 
-A RAG-powered tool for startup co-founders that grounds responses in Y Combinator
-knowledge and company data. It supports idea validation, startup planning, and
-workflow automation through a Streamlit app, with retrieval powered by ChromaDB
-and sentence-transformers on top of Kimi K2.
+RAG-powered startup advisor that validates ideas against a chunked Y Combinator
+knowledge base. Uses ChromaDB + sentence-transformers for retrieval and Kimi K2
+for grounded responses — not hallucinated startup advice.
+
+RAG pipeline indexes ~500 YC essays and startup postmortems into ChromaDB for grounded retrieval.

@@ -1,6 +1,6 @@
 ~~~
 title = "Zeus"
-description = "Autonomous CI/CD healing agent - detects failing tests, generates fixes, and commits them automatically. Built with FastAPI, React, Redis, and PostgreSQL. Built at RIFT 2026."
+description = "Autonomous CI/CD healing agent that watches your pipeline, detects failing tests, generates fixes with LLM analysis, and auto-commits them. Built with FastAPI, Redis job queues, and PostgreSQL at RIFT 2026 (Finalist)."
 date = "2026-03-01"
 published = true
 featured = true
@@ -17,6 +17,8 @@ url = "https://github.com/Antxnrx/zeus"
 
 # Zeus
 
-Autonomous CI/CD healing agent that detects failing tests, generates fixes,
-and commits them automatically. Built with FastAPI, React, Redis, and
-PostgreSQL at RIFT 2026.
+Autonomous CI/CD healing agent that watches your pipeline, detects failing tests,
+generates fixes with LLM analysis, and auto-commits them. Built with FastAPI,
+Redis job queues, and PostgreSQL at RIFT 2026 (Finalist).
+
+Processes pipeline runs in real-time via Redis pub/sub, with sub-second test failure detection across parallel CI jobs.

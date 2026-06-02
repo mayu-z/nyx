@@ -9,6 +9,12 @@
 
 	let { data }: { data: PageData } = $props();
 
+	// Split projects into main work and experiments
+	let mainProjects = $derived(data.projects.filter((p) => p.metadata.category !== 'experiment'));
+	let experimentProjects = $derived(
+		data.projects.filter((p) => p.metadata.category === 'experiment')
+	);
+
 	let activeProject = $state<ProjectEntry | null>(null);
 	let cardPos = $state({ top: 0, left: 0 });
 	let hideTimeout: ReturnType<typeof setTimeout>;
@@ -66,7 +72,7 @@
 
 <div class="projects-container" role="list">
 	<hr class="divider" />
-	{#each data.projects as project}
+	{#each mainProjects as project}
 		<!-- svelte-ignore a11y_no_static_element_interactions -->
 		<div
 			class="row-container"
@@ -83,6 +89,32 @@
 		</div>
 		<hr class="divider" />
 	{/each}
+
+	{#if experimentProjects.length > 0}
+		<div class="section-divider">
+			<hr class="divider-line" />
+			<span class="section-label">Earlier experiments — kept for transparency</span>
+			<hr class="divider-line" />
+		</div>
+
+		{#each experimentProjects as project}
+			<!-- svelte-ignore a11y_no_static_element_interactions -->
+			<div
+				class="row-container"
+				onmouseenter={(e) => onRowEnter(project, e)}
+				onmouseleave={onRowLeave}
+			>
+				<a href={`/projects/${project.slug}`} class="project-row experiment">
+					<div class="row-left">
+						<span class="name">{project.metadata.title}</span>
+						<p class="row-desc">{project.metadata.description}</p>
+					</div>
+					<span class="date">{formatDate(project.metadata.date)}</span>
+				</a>
+			</div>
+			<hr class="divider" />
+		{/each}
+	{/if}
 </div>
 
 {#if activeProject}
@@ -157,6 +189,10 @@
 		background-color: var(--current-accent-color, #b4befe);
 	}
 
+	.project-row.experiment::before {
+		background-color: var(--color-overlay0, #6c7086);
+	}
+
 	.row-left {
 		min-width: 0;
 		flex: 1;
@@ -198,6 +234,31 @@
 		border: none;
 		border-top: 1px solid #313244;
 		margin: 0;
+	}
+
+	/* Section divider between main projects and experiments */
+	.section-divider {
+		display: flex;
+		align-items: center;
+		gap: 1rem;
+		padding: 2rem 0;
+	}
+
+	.divider-line {
+		flex: 1;
+		border: none;
+		border-top: 1px dashed #45475a;
+		margin: 0;
+	}
+
+	.section-label {
+		color: #6c7086;
+		font-size: 12px;
+		font-weight: 500;
+		letter-spacing: 0.04em;
+		white-space: nowrap;
+		text-transform: lowercase;
+		font-style: italic;
 	}
 
 	.hover-card {

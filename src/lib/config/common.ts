@@ -52,26 +52,26 @@ const siteConfig: Site = {
 		commitBaseUrl: 'https://github.com/mayu-z/nyx/commit/'
 	},
 	name: 'Mayuresh Singh',
-	url: dev ? 'http://localhost:5173' : 'https://mayusingh.dev',
+	url: dev ? 'http://localhost:5173' : 'https://mayuu.me',
 	description:
 		'Mayuresh Singh -  Software Engineer in Bengaluru, India. I like occasionally building cool shit',
 	tags: [
 		'Mayuresh Singh',
-		'Senior Software Engineer',
+		'Backend Engineer',
 		'Bengaluru Software Developer',
 		'India',
 		'Golang Developer',
 		'DevOps Engineer',
 		'Software Engineering',
 		'Backend Developer',
-		'Full Stack Developer',
 		'Hackathon Developer',
 		'Bengaluru Tech',
 		'Indian Developer',
-		'Web Development',
 		'Cloud Computing',
+		'RAG Systems',
+		'Agentic AI',
 		'API Development',
-		'Software Architecture'
+		'CI/CD Pipelines'
 	],
 	seo: {
 		author: 'Mayuresh Singh',
@@ -81,15 +81,15 @@ const siteConfig: Site = {
 			url: 'https://aexiz.com'
 		},
 		location: {
-			city: '	Bengaluru',
-			region: 'Urban',
+			city: 'Bengaluru',
+			region: 'IN-KA',
 			country: 'India'
 		}
 	},
 	out: {
 		github: 'https://github.com/mayu-z',
 		linkedin: 'https://www.linkedin.com/in/mayu-esh/',
-		calcom: 'https://cal.com/mayuresh-singh/secret',
+		calcom: 'https://cal.com/mayuresh-singh/chat',
 		wakatime: 'https://wakatime.com/@mayu_esh',
 		codepen: 'https://codepen.io/take-',
 		instagram: 'https://www.instagram.com/inyorskin/',
