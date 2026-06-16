@@ -37,7 +37,7 @@ This project is licensed under the **GNU Affero General Public License v3.0 (AGP
 - Original repository: [JasonLovesDoggo/nyx](https://github.com/JasonLovesDoggo/nyx)
 
 **Modifications:**
-- Copyright (C) 2025 mayu-z
+- Copyright (C) 2025-2026 mayu-z
 - This repository contains changes made to the original work.
 
 **What this means:**
