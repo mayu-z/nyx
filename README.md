@@ -1,6 +1,6 @@
 # nyx
 
-my personal portfolio site, live at [mayuu.me](https://www.mayuu.me/).
+my personal portfolio site, live at [mayuu.me](https://www.mayuu.me).
 
 built on top of [JasonLovesDoggo/nyx](https://github.com/JasonLovesDoggo/nyx) with my own tweaks and customizations.
 
